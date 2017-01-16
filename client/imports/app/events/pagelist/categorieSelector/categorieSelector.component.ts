@@ -1,5 +1,8 @@
-import {Component} from '@angular/core';
-import {Event} from '../../../../../../both/models/event.model';
+import {Component,OnInit,Input} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import {Categorie,Event} from '../../../../../../both/models';
+import {CategorieDataService} from '../../categorie-data.service';
+
 
 import style from './categorieSelector.component.scss';
 import template from './categorieSelector.component.html';
@@ -9,19 +12,24 @@ import template from './categorieSelector.component.html';
   styles : [style],
   template
 })
-export class EventCategorieSelectorComponent {
-    categories: [any];
-    categorieEvent : string;
-    event : Event;
+export class EventCategorieSelectorComponent implements OnInit{
+    categories: Observable<Categorie[]>;
+    categorieEvent : Categorie;
     showChange: boolean;
 
-    constructor(){}
-    setCategorieEvent(categorie) {
+    constructor(private categorieDataService : CategorieDataService){}
+    ngOnInit(){
+      this.categories = this.categorieDataService.getData();
+    }
+    setCategorieEvent(categorie : Categorie) {
+
         this.categorieEvent = categorie;
+
         this.event.categorie = categorie.name;
         this.event.picture = categorie.imageLarge;
     }
     showList() {
+      console.log("polal");
         return ! this.categorieEvent;
     }
     showImage() {
