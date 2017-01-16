@@ -7,6 +7,7 @@ import { MaterialModule } from "@angular/material";
 
 import {Navigation} from './navigation/navigation.component';
 import {EventDataService} from './events/event-data.service';
+import {CategorieDataService} from './events/categorie-data.service';
 import { routes } from './app.routes';
 import {EVENTS_DECLARATIONS} from './events';
 import {EventAddComponent} from './events/pagelist/add/add.component';
@@ -25,7 +26,8 @@ import {EventAddComponent} from './events/pagelist/add/add.component';
   ],
   // Providers
   providers: [
-    EventDataService
+    EventDataService,
+    CategorieDataService
   ],
   // Modules
   imports: [
