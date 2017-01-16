@@ -1,0 +1,27 @@
+event-categorie-choice {
+    .listCategorie {
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    event-categorie-image-large, .imageSmall {
+        height: 100%;
+        width: auto;
+    }
+
+    md-grid-tile md-grid-tile-footer {
+        background: rgba(0,0,0,0.80) !important;
+        height: 24px !important;
+    }
+
+    md-grid-tile-footer figcaption h3 {
+        text-align: center;
+        font-weight: 500;
+    }
+    span {
+        position:relative;;
+        left: 30px;
+        bottom: 0;
+
+    }
+}

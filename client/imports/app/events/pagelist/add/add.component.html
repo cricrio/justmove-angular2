@@ -1,0 +1,25 @@
+<div layout-padding>
+
+
+<md-toolbar color="primary">
+    <h1>Créer un nouveau événement</h1>
+</md-toolbar>
+
+<form [formGroup]="addForm" layout="column" (submit)="addEvent()">
+        <md-input-container>
+            <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
+            <input md-input required formControlName="name" placeholder="Nom" />
+        </md-input-container>
+        <md-input-container>
+            <!-- <md-icon md-svg-icon="maps:ic_place_24px"></md-icon> -->
+            <input md-input required formControlName="location" placeholder="Lieux"/>
+        </md-input-container>
+        <md-input-container>
+            <md-icon md-svg-icon="action:ic_description_24px"></md-icon>
+            <textarea md-input formControlName="description" md-maxlength="1500" rows="3" placeholder="Description"></textarea>
+        </md-input-container>
+        <label>Catégories</label>
+        <event-categorie-selector event="eventAdd.event"></event-categorie-selector>
+        <button md-raised-button type="submit" color="primary">Ajouter</button>
+</form>
+</div>

@@ -1,0 +1,6 @@
+<event-add-button></event-add-button>
+<div class="md-padding" layout layout-wrap layout-sm="column" layout-xs="column" layout-align="center">
+    <div class="list" *ngFor="let event of events | async" flex="45" flex-sm="100" flex-xs="50" >
+        {{event.name}}
+    </div>
+</div>

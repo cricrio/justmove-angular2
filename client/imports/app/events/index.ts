@@ -1,0 +1,3 @@
+import {EVENTS_PAGE_LIST_DECLARATIONS} from './pagelist/';
+
+export const EVENTS_DECLARATIONS = [...EVENTS_PAGE_LIST_DECLARATIONS];
