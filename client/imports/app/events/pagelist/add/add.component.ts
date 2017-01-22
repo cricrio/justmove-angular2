@@ -13,9 +13,9 @@ import style from './add.component.scss';
     template
 })
 export class EventAddComponent implements OnInit {
-    categorie : Categorie;
+    categorie: Categorie;
     addForm: FormGroup;
-    constructor(public dialogRef: MdDialogRef<EventAddComponent>, private formBuilder: FormBuilder){
+    constructor(public dialogRef: MdDialogRef<EventAddComponent>, private formBuilder: FormBuilder) {
     }
     ngOnInit() {
         this.addForm = this.formBuilder.group({
@@ -24,14 +24,16 @@ export class EventAddComponent implements OnInit {
             location: ['', Validators.required],
         });
     }
-    addEvent(){
+    addEvent() {
+        this.addForm.value.categorie = this.categorie.name;
+        this.addForm.value.picture = this.categorie.imageLarge;
         EventCollection.insert(this.addForm.value);
+        console.log(this.addForm.value);
         this.addForm.reset();
         this.dialogRef.close();
+
     }
-    onCategorieSelected(categorie : Categorie){
-      this.addForm.value.categorie = categorie.name;
-      this.addForm.value.picture = categorie.imageLarge;
-      console.log(this.addForm.value);
+    onCategorieSelected(categorie: Categorie) {
+        this.categorie = categorie;
     }
 }
