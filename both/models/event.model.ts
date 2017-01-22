@@ -1,6 +1,6 @@
 import {CollectionObject} from './collection-object.model';
 
-export interface Event extends CollectionObject{
+export interface JmEvent extends CollectionObject{
     title: String,
     date: Date,
     categorie: String,

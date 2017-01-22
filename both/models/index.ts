@@ -1,4 +1,4 @@
 import {Categorie} from './categorie.model';
-import {Event} from './event.model';
+import {JmEvent} from './event.model';
 
-export {Categorie,Event};
+export {Categorie,JmEvent};

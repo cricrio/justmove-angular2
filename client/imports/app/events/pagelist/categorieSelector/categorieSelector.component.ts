@@ -1,6 +1,6 @@
-import {Component,OnInit,Input} from '@angular/core';
+import {Component, OnInit, Output,EventEmitter} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {Categorie,Event} from '../../../../../../both/models';
+import {Categorie, JmEvent} from '../../../../../../both/models';
 import {CategorieDataService} from '../../categorie-data.service';
 
 
@@ -8,29 +8,27 @@ import style from './categorieSelector.component.scss';
 import template from './categorieSelector.component.html';
 
 @Component({
-  selector : 'event-categorie-selector',
-  styles : [style],
-  template
+    selector: 'event-categorie-selector',
+    styles: [style],
+    template
 })
-export class EventCategorieSelectorComponent implements OnInit{
+export class EventCategorieSelectorComponent implements OnInit {
+    @Output() onCategorieSelected = new EventEmitter<Categorie>();
     categories: Observable<Categorie[]>;
-    categorieEvent : Categorie;
+    categorieEvent: Categorie;
     showChange: boolean;
 
-    constructor(private categorieDataService : CategorieDataService){}
-    ngOnInit(){
-      this.categories = this.categorieDataService.getData();
+    constructor(private categorieDataService: CategorieDataService) { }
+    ngOnInit() {
+        this.categories = this.categorieDataService.getData();
     }
-    setCategorieEvent(categorie : Categorie) {
+    setCategorieEvent(categorie: Categorie) {
 
         this.categorieEvent = categorie;
-
-        this.event.categorie = categorie.name;
-        this.event.picture = categorie.imageLarge;
+        this.onCategorieSelected.emit(categorie);
     }
     showList() {
-      console.log("polal");
-        return ! this.categorieEvent;
+        return !this.categorieEvent;
     }
     showImage() {
         return !!this.categorieEvent && !this.showChange;

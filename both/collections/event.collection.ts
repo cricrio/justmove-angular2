@@ -1,5 +1,5 @@
 import { MongoObservable } from 'meteor-rxjs';
 
-import { Event } from '../models/event.model';
+import { JmEvent } from '../models/event.model';
 
-export const EventCollection = new MongoObservable.Collection<Event>('events');
+export const EventCollection = new MongoObservable.Collection<JmEvent>('events');
