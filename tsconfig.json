@@ -14,6 +14,9 @@
   "exclude": [
     "node_modules"
   ],
+  "typeRoots": [
+      "../../node_modules/@types/"
+    ],
   "compileOnSave": false,
   "angularCompilerOptions": {
     "genDir": "aot",

@@ -1,18 +1,13 @@
+event-date {
+    padding-top: 6px;
+    margin-right: 30px;
+}
 
-event-card {
-    event-date {
-        padding-top: 6px;
-        margin-right: 30px;
-    }
+md-card-title {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
 
-    md-card-title {
-        padding-top: 6px !important;
-        padding-bottom: 6px !important;
-    }
-    .image{
-      width: 100%;
-    }
-    .event-name:hover{
-      text-decoration: underline;
-    }
+.event-name:hover {
+    text-decoration: underline;
 }

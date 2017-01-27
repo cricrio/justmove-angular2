@@ -2,14 +2,14 @@
     <!-- <event-card-header [event]="event"></event-card-header> -->
     <img md-card-image class="image" src="{{event.picture}}">
     <!-- <event-image images="eventCard.event.image" ui-sref="eventDetails({ eventId : '{{eventCard.event._id}}' })"></event-image> -->
-    <md-card-title>
-        <md-card-title layout="row">
-            <!-- <event-date [date]="event.date"></event-date> -->
-            <div layout="column">
-                <span class="md-headline event-name">{{event.title}}</span>
-                <span>{{event.date | amCalendar}}</span>
-                <span>{{event.location}}</span>
-            </div>
-        </md-card-title>
+
+    <md-card-title layout="row">
+        <event-date [date]="event.date"></event-date>
+        <div layout="column">
+            <span class="md-headline event-name">{{event.title}}</span>
+            <span>{{event.date | amCalendar}}</span>
+            <span>{{event.location}}</span>
+        </div>
     </md-card-title>
+
 </md-card>

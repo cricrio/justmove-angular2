@@ -1,13 +1,18 @@
 <md-toolbar color="primary">
-    <h2 md-dialog-title>Neptune</h2>
+    <h2 md-dialog-title>Créer un événement</h2>
 </md-toolbar>
 
 <md-dialog-content>
     <form [formGroup]="addForm" layout="column" (submit)="addEvent()">
         <md-input-container>
             <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
-            <input md-input required formControlName="name" placeholder="Nom" />
+            <input md-input required formControlName="title" placeholder="Nom" />
         </md-input-container>
+        <md-input-container>
+            <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
+            <input md-input required [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" ng2-datetime-picker date-only="true"/>
+        </md-input-container>
+        <!-- <event-input-date></event-input-date> -->
         <md-input-container>
             <!-- <md-icon md-svg-icon="maps:ic_place_24px"></md-icon> -->
             <input md-input required formControlName="location" placeholder="Lieux" />
@@ -18,6 +23,6 @@
         </md-input-container>
         <label>Catégories</label>
         <event-categorie-selector (onCategorieSelected)="onCategorieSelected($event)"></event-categorie-selector>
-        <button md-raised-button type="submit" color="primary">Ajouter</button>
+        <button md-raised-button (onClick) = "addEvent()" color="primary">Ajouter</button>
     </form>
 </md-dialog-content>

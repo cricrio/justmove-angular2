@@ -5,6 +5,7 @@ import { AppComponent } from "./app.component";
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from "@angular/material";
 import {MomentModule} from 'angular2-moment';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 
 import { ApolloModule } from 'angular2-apollo';
 import ApolloClient from 'apollo-client';
@@ -52,7 +53,8 @@ export function provideClient(): ApolloClient {
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        MomentModule
+        MomentModule,
+        Ng2DatetimePickerModule
     ],
     // Main Component
     bootstrap: [AppComponent]
