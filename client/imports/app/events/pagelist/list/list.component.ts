@@ -12,29 +12,36 @@ import ApolloClient from 'apollo-client';
 @Component({
     selector: 'event-list',
     template,
-    styles : [style]
+    styles: [style]
 })
 export class EventsListComponent implements OnInit {
     events: Observable<any>;
 
     EventFeed = gql`query {
-events{
-_id
-title
-picture
-date
-categorie
-location
-}
-}`;
+      events{
+        _id
+        title
+        owner{
+          name
+          picture
+        }
+        picture
+        date
+        categorie
+        location
+      }
+    }`;
     constructor(private apollo: Angular2Apollo) {
 
     }
 
     ngOnInit() {
 
-        this.events = this.apollo.watchQuery({ query: this.EventFeed, pollInterval: 10000 })
+        this.events = this.apollo.watchQuery({ query: this.EventFeed, pollInterval: 5000 })
             .map(({data}) => data.events);
 
+    }
+    islogin(): boolean {
+        return !!Meteor.userId();
     }
 }

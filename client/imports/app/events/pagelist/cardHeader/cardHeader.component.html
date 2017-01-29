@@ -1,11 +1,5 @@
 <md-card-header>
-    <md-card-avatar>
-        <img class="avatar" src="{{event.owner.picture}}"/>
-    </md-card-avatar>
-    <md-card-header-text>
-        <span class="md-title">
-            {{event.owner.name}}
-        </span>
-        <span class="md-subhead">{{event.categorie}}</span>
-    </md-card-header-text>
+    <img md-card-avatar src="{{event.owner.picture}}" />
+    <md-card-title> <span class="owner-name">{{event.owner.name}}</span> </md-card-title>
+    <md-card-subtitle>{{event.categorie}}</md-card-subtitle>
 </md-card-header>

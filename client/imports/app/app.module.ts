@@ -14,7 +14,8 @@ import { meteorClientConfig } from 'meteor/apollo';
 import {Navigation} from './navigation/navigation.component';
 import {EventDataService} from './events/event-data.service';
 import {CategorieDataService} from './events/categorie-data.service';
-import { routes } from './app.routes';
+import { routes,ROUTES_PROVIDERS } from './app.routes';
+import {AUTH_DECLARATIONS} from './auth';
 import {EVENTS_DECLARATIONS} from './events';
 import {EventAddComponent} from './events/pagelist/add/add.component';
 
@@ -33,6 +34,7 @@ export function provideClient(): ApolloClient {
     declarations: [
         AppComponent,
         Navigation,
+        ...AUTH_DECLARATIONS,
         ...EVENTS_DECLARATIONS
     ],
     // Entry Components
@@ -43,7 +45,8 @@ export function provideClient(): ApolloClient {
     // Providers
     providers: [
         EventDataService,
-        CategorieDataService
+        CategorieDataService,
+        ...ROUTES_PROVIDERS
     ],
     // Modules
     imports: [

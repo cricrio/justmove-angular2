@@ -1,17 +1,12 @@
-event-card-header {
-    md-card-avatar{
-        width: 55px !important;
-        height: 55px !important;
-    }
-    md-card-header-text{
-        padding-left: 10px;
-    }
-    .md-title{
-        font-weight: bold;
-    }
-    .avatar {
-        width: 100%;
-        border-radius: 50%;
-        height: 100%;
-    }
+md-card-avatar {
+    width: 55px !important;
+    height: 55px !important;
+}
+
+md-card-header-text {
+    padding-left: 10px;
+}
+
+.event-name{
+  font-size: 22px;
 }

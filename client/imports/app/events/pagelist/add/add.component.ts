@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {Meteor} from 'meteor/meteor';
 import {MdDialogRef} from '@angular/material';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {EventCollection} from '../../../../../../both/collections/event.collection';
-import {Categorie,JmEvent} from '../../../../../../both/models/';
+import {Categorie, JmEvent} from '../../../../../../both/models/';
 import template from './add.component.html';
 import style from './add.component.scss';
 
@@ -14,8 +15,8 @@ import style from './add.component.scss';
 })
 export class EventAddComponent implements OnInit {
     categorie: Categorie;
-    poloc : JmEvent;
-    date : Date;
+    poloc: JmEvent;
+    date: Date;
     addForm: FormGroup;
     constructor(public dialogRef: MdDialogRef<EventAddComponent>, private formBuilder: FormBuilder) {
     }
@@ -28,12 +29,20 @@ export class EventAddComponent implements OnInit {
 
         });
     }
-    addEvent() {
+    addEvent(): void {
+        if (!Meteor.userId()) {
+            alert('Please log in to add a party');
+            return;
+        }
 
-        this.addForm.value.date = this.date;
-        this.addForm.value.categorie = this.categorie.name;
-        this.addForm.value.picture = this.categorie.imageLarge;
-        EventCollection.insert(this.addForm.value);
+        EventCollection.insert(Object.assign({},
+            this.addForm.value,
+            { owner: Meteor.userId() },
+            { date: this.date },
+            { categorie: this.categorie.name },
+            { picture: this.categorie.imageLarge })
+        );
+
         this.addForm.reset();
         this.dialogRef.close();
 

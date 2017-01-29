@@ -1,8 +1,8 @@
 <div class="choixCategorie">
     <div class="listCategorie" *ngIf="showList()">
         <md-grid-list cols="6" md-row-height="1:1" md-gutter="12px">
-            <md-grid-tile  *ngFor="let categorie of categories | async">
-              <img class="imageSmall" src="{{categorie.imageSmall}}" (click) = "setCategorieEvent(categorie)"/>
+            <md-grid-tile *ngFor="let categorie of categories | async">
+                <img class="imageSmall" src="{{categorie.imageSmall}}" (click)="setCategorieEvent(categorie)" />
                 <!-- <event-categorie-image image='categorie.thumb' ng-click="eventCategorieChoice.setCategorieEvent(categorie);"></event-categorie-image> -->
                 <md-grid-tile-footer>
                     <h3>{{categorie.name}}</h3>
@@ -11,7 +11,7 @@
         </md-grid-list>
     </div>
     <div class="imageEvent" *ngIf="showImage()">
-      <img src="{{categorieEvent.imageLarge}}"/>
+        <img class="imageLarge" src="{{categorieEvent.imageLarge}}" />
         <!-- <event-categorie-image-large image="eventCategorieChoice.categorieEvent.largeImage"></event-categorie-image-large> -->
         <!-- <span ng-click="eventCategorieChoice.setShowChangeImage()">Vous voulez changer d'image cliquer ici</span> -->
     </div>

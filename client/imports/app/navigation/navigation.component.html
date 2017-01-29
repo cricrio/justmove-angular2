@@ -1,7 +1,12 @@
 <md-toolbar color="primary">
 
-        <a md-button routerLink="/" class="logo">Justmove</a>
-        <!-- <span flex></span> -->
-        <!-- <login-button></login-button> -->
-
+    <a md-button routerLink="/" class="logo">Justmove</a>
+    <span class="fill-remaining-space"></span>
+    <div [hidden]="islogin()">
+        <a md-button [routerLink]="['/login']">Login</a>
+        <a md-button [routerLink]="['/signup']">Sign up</a>
+    </div>
+    <div [hidden]="! islogin()">
+    <button md-button (click)="logout()">Logout</button>
+  </div>
 </md-toolbar>

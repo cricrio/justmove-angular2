@@ -1,7 +1,7 @@
 import {EventCollection} from '../../collections/event.collection';
 
 export const queries = {
-        eventbyid(root, args, context) {
+        event(root, args, context) {
 
             const event = EventCollection.findOne({_id: args.id});
             if (event) {
@@ -11,7 +11,7 @@ export const queries = {
             }
         },
         events(root, args, context) {
-          console.log("eventsss");
+
             return EventCollection.find({}).fetch();
 
         },
