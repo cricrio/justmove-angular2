@@ -3,7 +3,7 @@
 </md-toolbar>
 
 <md-dialog-content>
-    <form [formGroup]="addForm" layout="column" (submit)="addEvent()">
+    <form [formGroup]="addForm" layout="column" (ngSubmit)="addEvent()">
         <md-input-container>
             <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
             <input md-input required formControlName="title" placeholder="Nom" />
@@ -23,6 +23,6 @@
         </md-input-container>
         <label>Catégories</label>
         <event-categorie-selector (onCategorieSelected)="onCategorieSelected($event)"></event-categorie-selector>
-        <button md-raised-button (onClick) = "addEvent()" color="primary">Ajouter</button>
+        <button md-raised-button color="primary">Ajouter</button>
     </form>
 </md-dialog-content>

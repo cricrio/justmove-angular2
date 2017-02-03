@@ -12,8 +12,8 @@ import style from './details.component.scss';
     styles: [style]
 })
 export class EventDetailsComponent implements OnInit, OnDestroy {
-    eventId: string;
-    EventFeed = gql`query getEvent($id: String){
+    private eventId: string;
+    private EventFeed = gql`query getEvent($id: String){
     event(id : $id){
       _id
       title
@@ -21,9 +21,13 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         name
         picture
       }
+      organisators{
+        name
+        picture
+      }
       picture
       date
-      categorie
+      description
       location
     }
   }`;
@@ -48,6 +52,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
                 });
                 this.eventSub = this.eventObs.subscribe(({ data, loading }) => {
                     this.event = data.event;
+                    console.log(this.event);
                     this.loading = loading;
 
                 });

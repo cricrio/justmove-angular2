@@ -15,7 +15,6 @@ import style from './add.component.scss';
 })
 export class EventAddComponent implements OnInit {
     categorie: Categorie;
-    poloc: JmEvent;
     date: Date;
     addForm: FormGroup;
     constructor(public dialogRef: MdDialogRef<EventAddComponent>, private formBuilder: FormBuilder) {
@@ -40,7 +39,8 @@ export class EventAddComponent implements OnInit {
             { owner: Meteor.userId() },
             { date: this.date },
             { categorie: this.categorie.name },
-            { picture: this.categorie.imageLarge })
+            { picture: this.categorie.imageLarge },
+            { organisatorids: [Meteor.userId()] })
         );
 
         this.addForm.reset();

@@ -1,9 +1,9 @@
-import {Component, OnInit, Output,EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Categorie} from '../../../../../../both/models';
+import {CategorieCollection} from '../../../../../../both/collections/categorie.collection';
+import { MeteorObservable } from 'meteor-rxjs';
 import { Observable } from 'rxjs/Observable';
-import {Categorie, JmEvent} from '../../../../../../both/models';
-import {CategorieDataService} from '../../categorie-data.service';
-
-
+import { Subscription } from 'rxjs/Subscription';
 import style from './categorieSelector.component.scss';
 import template from './categorieSelector.component.html';
 
@@ -14,13 +14,18 @@ import template from './categorieSelector.component.html';
 })
 export class EventCategorieSelectorComponent implements OnInit {
     @Output() onCategorieSelected = new EventEmitter<Categorie>();
+    categorieSub: Subscription;
     categories: Observable<Categorie[]>;
     categorieEvent: Categorie;
     showChange: boolean;
 
-    constructor(private categorieDataService: CategorieDataService) { }
+    constructor() { }
     ngOnInit() {
-        this.categories = this.categorieDataService.getData();
+
+        this.categorieSub = MeteorObservable.subscribe('categories').subscribe(() => {
+            this.categories = CategorieCollection.find({}).zone();
+        });
+
     }
     setCategorieEvent(categorie: Categorie) {
 

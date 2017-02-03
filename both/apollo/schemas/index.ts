@@ -24,7 +24,7 @@ export const typeDefs = [`
   type Query {
     event(id: String): Event
     events: [Event]
-    userbyid(id: String): User
+    user(id: String): User
   }
   schema {
     query: Query

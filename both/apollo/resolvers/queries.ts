@@ -15,10 +15,14 @@ export const queries = {
             return EventCollection.find({}).fetch();
 
         },
-        userbyid(root, args, context) {
+        user(root, args, context) {
             const user = Meteor.users.findOne({_id: args.id});
             if (user) {
-                return user;
+                return {
+                  _id : user._id,
+                  name: user.profile.name,
+                  picture: user.profile.picture
+                };
             } else {
                 throw new Error("404, user not found");
             }

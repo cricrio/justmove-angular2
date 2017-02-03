@@ -1,0 +1,38 @@
+.event-details {
+    .banniere {
+        position: relative;
+        width: 100%;
+    }
+
+    .banniere-image {
+        width: 100%;
+        vertical-align: baseline;
+    }
+
+    .event-description {
+        background-color: white;
+        padding: 20px 50px;
+        margin-bottom: 50px;
+        min-height: 100px;
+    }
+
+    .event-page-middle {
+        border-radius: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: white;
+        padding: 20px;
+
+    }
+
+    .side-name {
+        text-align: center;
+    }
+    .side{
+      background-color: white;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 15px;
+    
+    }
+}

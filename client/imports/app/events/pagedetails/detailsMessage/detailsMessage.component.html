@@ -1,0 +1,7 @@
+<div layout="row" class="event-details-message" *ngIf="!loading && user">
+    <user-small-picture class="message-owner-picture" [user]="user"></user-small-picture>
+    <div layout="column">
+        <span class="message-owner-name">{{user.name}}</span>
+        <span class="message-text">{{message.text}}</span>
+    </div>
+</div>

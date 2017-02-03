@@ -1,6 +1,22 @@
-<p *ngIf="loading" >
-  Loading...
+<p *ngIf="loading">
+    Loading...
 </p>
-<div *ngIf="!loading && event">
-  <img src="{{event.picture}}"/>
+<div class="event-details" *ngIf="!loading && event">
+    <img class="banniere-image" src="{{event.picture}}" />
+    <div layout="row">
+        <aside class="event-page-left side">
+            <h4 class="side-name">Organisateurs</h4>
+            <event-list-users [users]="event.organisators"></event-list-users>
+        </aside>
+        <div class="event-page-middle" layout="column" flex>
+            <event-details-info [event]="event"></event-details-info>
+            <div class="event-description">
+              {{event.description}}
+            </div>
+            <event-details-message-room [event]="event"></event-details-message-room>
+        </div>
+        <aside class="event-page-left side">
+            <h4 class="side-name">Participants</h4>
+        </aside>
+    </div>
 </div>

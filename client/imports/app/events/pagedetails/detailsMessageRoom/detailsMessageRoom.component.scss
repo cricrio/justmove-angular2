@@ -1,0 +1,27 @@
+.event-details-message-room {
+    event-details-message {
+        margin: 10px;
+    }
+
+    .contenaire-message {
+        margin-bottom: 2px;
+    }
+
+    .send-message-button {
+        height: 10px;
+    }
+
+    .event-commentaire,
+    .event-commentaire-owner {
+        display: inline-block;
+    }
+
+    .event-commentaire-box {
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    event-details-message {
+        margin-bottom: 10px;
+    }
+}
