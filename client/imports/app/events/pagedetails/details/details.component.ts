@@ -13,15 +13,19 @@ import style from './details.component.scss';
 })
 export class EventDetailsComponent implements OnInit, OnDestroy {
     private eventId: string;
-    private EventFeed = gql`query getEvent($id: String){
+
+    private OrganisatorsQuery = gql`query getOrganisators($id : String){
+      guestsFromEvent(id : $id){
+      name
+      picture
+    }
+}`;
+
+    private EventQuery = gql`query getEvent($id: String){
     event(id : $id){
       _id
       title
       owner{
-        name
-        picture
-      }
-      organisators{
         name
         picture
       }
@@ -31,6 +35,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       location
     }
   }`;
+
     public event: any;
     public loading: boolean;
     private eventSub: Subscription;
@@ -47,7 +52,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
             .subscribe(eventId => {
                 this.eventId = eventId;
                 this.eventObs = this.apollo.watchQuery({
-                    query: this.EventFeed,
+                    query: this.EventQuery,
                     variables: { id: this.eventId }
                 });
                 this.eventSub = this.eventObs.subscribe(({ data, loading }) => {

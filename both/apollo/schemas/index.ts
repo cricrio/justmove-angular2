@@ -25,8 +25,19 @@ export const typeDefs = [`
     event(id: String): Event
     events: [Event]
     user(id: String): User
+    guestsFromEvent(id: String ): [String]
+    organisatorsFromEvent(id: String ): [String]
   }
+
+  type Mutation {
+    addGuest (
+      eventId : String!
+      userId: String!
+    ): Event
+  }
+
   schema {
     query: Query
+    mutation: Mutation
   }
   `];

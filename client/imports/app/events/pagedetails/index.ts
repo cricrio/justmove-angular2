@@ -5,6 +5,7 @@ import {EventUserComponent} from './user/user.component';
 import {EventDetailsMessageRoomComponent} from './detailsMessageRoom/detailsMessageRoom.component';
 import {EventDetailsMessageComponent} from './detailsMessage/detailsMessage.component';
 import {UserSmallPictureComponent} from './userSmallPicture/userSmallPicture.component';
+import {GuestsListComponent} from './guestsList/guestsList.component';
 
 export const EVENTS_PAGE_DETAILS_DECLARATIONS = [
     EventDetailsComponent,
@@ -13,5 +14,6 @@ export const EVENTS_PAGE_DETAILS_DECLARATIONS = [
     EventListUserComponent,
     EventDetailsMessageRoomComponent,
     EventDetailsMessageComponent,
-    UserSmallPictureComponent
+    UserSmallPictureComponent,
+    GuestsListComponent
 ];

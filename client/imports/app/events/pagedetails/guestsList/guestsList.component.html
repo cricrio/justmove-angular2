@@ -1,0 +1,4 @@
+<p *ngIf="loading">
+    Loading...
+</p>
+<event-list-users [users]="guestList" *ngIf="!loading && guestList"></event-list-users>

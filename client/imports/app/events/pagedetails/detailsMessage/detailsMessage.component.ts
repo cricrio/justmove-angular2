@@ -14,7 +14,7 @@ import style from './detailsMessage.component.scss';
 export class EventDetailsMessageComponent {
     @Input() message: Message;
     private UserFeed = gql`query getUser($id: String){
-      user(id : $id){
+      getUser(id : $id){
       _id
       name
       picture
@@ -35,9 +35,7 @@ export class EventDetailsMessageComponent {
             variables: { id: this.message.owner }
         });
         this.userSub = this.userObs.subscribe(({data, loading}) => {
-
             this.user = data.user;
-              console.log(this.user);
             this.loading = loading;
         })
     }
