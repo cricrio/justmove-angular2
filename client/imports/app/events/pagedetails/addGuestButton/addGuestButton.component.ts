@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Meteor} from 'meteor/meteor';
+// import * as _ from '_'
 import template from './addGuestButton.component.html';
 import style from './addGuestButton.component.scss';
 
@@ -12,7 +13,7 @@ export class EventDetailsAddGuestButtonComponent {
     @Input() jMevent: any;
     constructor() { }
     private isComing() : boolean{
-      return jMevent.
+      return false;
     }
 
 }
