@@ -1,4 +1,4 @@
-<div layout="column">
+<div layout="column" *ngIf="!loading && user">
     <img class="user-picture" src="{{user.picture}}"/>
     <span class="user-name">{{user.name}}</span>
 </div>

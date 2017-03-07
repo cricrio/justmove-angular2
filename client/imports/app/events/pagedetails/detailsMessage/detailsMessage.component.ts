@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Message} from '../../../../../../both/models/message.model';
 import {Subscription} from 'rxjs/Subscription';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
@@ -11,10 +11,10 @@ import style from './detailsMessage.component.scss';
     template,
     styles: [style]
 })
-export class EventDetailsMessageComponent {
+export class EventDetailsMessageComponent implements OnInit{
     @Input() message: Message;
     private UserFeed = gql`query getUser($id: String){
-      getUser(id : $id){
+      user(id : $id){
       _id
       name
       picture

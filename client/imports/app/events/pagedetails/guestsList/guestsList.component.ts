@@ -11,7 +11,7 @@ import style from './guestsList.component.scss';
     template,
     styles: [style]
 })
-export class GuestsListComponent implements OnInit {
+export class EventDetailsGuestsListComponent implements OnInit {
     @Input() event: any;
     guestListObs: ApolloQueryObservable<any>;
     guestListSub: Subscription;
@@ -32,7 +32,6 @@ export class GuestsListComponent implements OnInit {
         this.guestListSub = this.guestListObs.subscribe(({ data, loading }) => {
             this.loading = loading;
             this.guestList = data.guestsFromEvent;
-            console.log(guestList);
         })
     }
 }

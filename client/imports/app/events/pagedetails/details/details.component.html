@@ -3,6 +3,7 @@
 </p>
 <div class="event-details" *ngIf="!loading && event">
     <img class="banniere-image" src="{{event.picture}}" />
+    <event-details-add-guest-button [event]="event"></event-details-add-guest-button>
     <div layout="row">
         <aside class="event-page-left side">
             <h4 class="side-name">Organisateurs</h4>
