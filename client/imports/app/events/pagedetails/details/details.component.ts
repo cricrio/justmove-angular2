@@ -13,15 +13,12 @@ import style from './details.component.scss';
 })
 export class EventDetailsComponent implements OnInit, OnDestroy {
     private eventId: string;
-    private EventFeed = gql`query getEvent($id: String){
+
+    private EventQuery = gql`query getEvent($id: String){
     event(id : $id){
       _id
       title
       owner{
-        name
-        picture
-      }
-      organisators{
         name
         picture
       }
@@ -30,8 +27,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       description
       location
     }
+    guestsFromEvent(id : $id)
   }`;
+
     public event: any;
+    public guestsid :string[];
     public loading: boolean;
     private eventSub: Subscription;
     private eventObs: ApolloQueryObservable<any>;
@@ -47,12 +47,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
             .subscribe(eventId => {
                 this.eventId = eventId;
                 this.eventObs = this.apollo.watchQuery({
-                    query: this.EventFeed,
+                    query: this.EventQuery,
                     variables: { id: this.eventId }
                 });
                 this.eventSub = this.eventObs.subscribe(({ data, loading }) => {
                     this.event = data.event;
-                    console.log(this.event);
                     this.loading = loading;
 
                 });

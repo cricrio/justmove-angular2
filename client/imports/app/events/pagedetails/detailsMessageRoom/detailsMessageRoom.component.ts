@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit,OnDestroy, Input} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -33,6 +33,9 @@ export class EventDetailsMessageRoomComponent implements OnInit {
 
 
     }
+    ngOnDestroy(){
+      this.messagesSub.unsubscribe();
+    }
     addMessage(): void {
         if (!Meteor.userId()) {
             alert('Please log in to add a party');
@@ -49,7 +52,6 @@ export class EventDetailsMessageRoomComponent implements OnInit {
         );
 
         this.messageForm.reset();
-
 
     }
 }
