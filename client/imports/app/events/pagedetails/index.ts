@@ -6,7 +6,7 @@ import {EventDetailsMessageRoomComponent} from './detailsMessageRoom/detailsMess
 import {EventDetailsMessageComponent} from './detailsMessage/detailsMessage.component';
 import {UserSmallPictureComponent} from './userSmallPicture/userSmallPicture.component';
 import {EventDetailsGuestsListComponent} from './guestsList/guestsList.component';
-// import  {EventDetailsAddGuestButtonComponent} from './addGuestButton/addGuestButton.component';
+import  {EventDetailsAddGuestButtonComponent} from './addGuestButton/addGuestButton.component';
 
 export const EVENTS_PAGE_DETAILS_DECLARATIONS = [
     EventDetailsComponent,
@@ -15,7 +15,7 @@ export const EVENTS_PAGE_DETAILS_DECLARATIONS = [
     EventListUserComponent,
     EventDetailsMessageRoomComponent,
     EventDetailsMessageComponent,
-    
+    EventDetailsAddGuestButtonComponent,
     UserSmallPictureComponent,
     EventDetailsGuestsListComponent
 ];

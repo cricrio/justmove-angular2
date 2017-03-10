@@ -14,13 +14,21 @@ import { meteorClientConfig } from 'meteor/apollo';
 import {Navigation} from './navigation/navigation.component';
 import {EventDataService} from './events/event-data.service';
 import {CategorieDataService} from './events/categorie-data.service';
-import { routes,ROUTES_PROVIDERS } from './app.routes';
+import { routes, ROUTES_PROVIDERS } from './app.routes';
 import {AUTH_DECLARATIONS} from './auth';
 import {EVENTS_DECLARATIONS} from './events';
 import {EventAddComponent} from './events/pagelist/add/add.component';
 
+/*
+Injectables
+*/
+import {servicesInjectables} from '../services/services';
 
 
+/*
+Services
+*/
+import {UserService} from '../services/services';
 
 // Create the client as outlined above
 const client = new ApolloClient(meteorClientConfig());
@@ -46,6 +54,7 @@ export function provideClient(): ApolloClient {
     providers: [
         EventDataService,
         CategorieDataService,
+        servicesInjectables,
         ...ROUTES_PROVIDERS
     ],
     // Modules
@@ -63,7 +72,7 @@ export function provideClient(): ApolloClient {
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor() {
-
+    constructor(private userService: UserService) {
+        userService.setCurrentUser();
     }
 }
