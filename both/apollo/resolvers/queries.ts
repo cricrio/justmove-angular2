@@ -16,8 +16,10 @@ export const queries = {
 
     },
     guestsFromEvent(root, args, context) {
+        console.log("called")
         const event = EventCollection.findOne({ _id: args.id });
         if (event) {
+          console.log(JSON.stringify(event,null,2));
             return event.guestids;
         } else {
             throw new Error("404, event not found");

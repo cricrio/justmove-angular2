@@ -1,7 +1,7 @@
 <p *ngIf="loading">
     Loading...
 </p>
-<div class="event-details" *ngIf="!loading && event">
+<div class="event-details" *ngIf="event">
     <img class="banniere-image" src="{{event.picture}}" />
 
     <event-details-add-guest-button [(event)]="event"></event-details-add-guest-button>
@@ -19,7 +19,8 @@
         </div>
         <aside class="event-page-left side">
             <h4 class="side-name">Participants</h4>
-            <event-details-guests-list [event]="event"></event-details-guests-list>
+
+            <event-details-guests-list></event-details-guests-list>
         </aside>
     </div>
 </div>

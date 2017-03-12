@@ -2,11 +2,11 @@
     <form [formGroup]="messageForm" layout="column" class="send-message-form" (ngSubmit)="addMessage()">
         <md-input-container class="md-inline contenaire-message" flex>
 
-            <textarea md-input required formControlName="text" type="text" placeholder="Ecrivez quelque chose de sympa ;)" rows="2"></textarea>
+            <textarea mdInput required formControlName="text" type="text" placeholder="Ecrivez quelque chose de sympa ;)" rows="2"></textarea>
         </md-input-container>
         <button type="submit" md-button class="md-raised" aria-label="envoyer message">Publier</button>
     </form>
-  
+
 
     <event-details-message *ngFor="let message of messages | async" [message]="message"></event-details-message>
 

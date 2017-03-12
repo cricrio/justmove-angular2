@@ -1,10 +1,15 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
-import gql from 'graphql-tag';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Subject} from 'rxjs/Subject';
+import {ApolloQueryObservable} from 'angular2-apollo';
+
 import template from './details.component.html';
 import style from './details.component.scss';
+
+
+import {EventService} from '../../../../services/services';
 
 @Component({
     selector: 'event-details',
@@ -12,49 +17,32 @@ import style from './details.component.scss';
     styles: [style]
 })
 export class EventDetailsComponent implements OnInit, OnDestroy {
-    private eventId: string;
-
-    private EventQuery = gql`query getEvent($id: String){
-    event(id : $id){
-      _id
-      title
-      owner{
-        name
-        picture
-      }
-      picture
-      date
-      description
-      location
-    }
-    guestsFromEvent(id : $id)
-  }`;
 
     public event: any;
-    public guestsid :string[];
+    public guestsid: string[];
     public loading: boolean;
+    private eventId: Subject<string> = new Subject<string>();
     private eventSub: Subscription;
-    private eventObs: ApolloQueryObservable<any>;
+    private eventObs: BehaviorSubject<any>;
 
 
     constructor(
         private route: ActivatedRoute,
-        private apollo: Angular2Apollo
+        private eventService: EventService
     ) { }
+
     ngOnInit() {
+        this.eventObs = this.eventService.setCurrentEvent(this.eventId);
+        this.eventSub = this.eventObs.subscribe(event => {
+            this.event = event;
+            console.log(event);
+        })
         this.route.params
             .map(params => params['eventId'])
             .subscribe(eventId => {
-                this.eventId = eventId;
-                this.eventObs = this.apollo.watchQuery({
-                    query: this.EventQuery,
-                    variables: { id: this.eventId }
-                });
-                this.eventSub = this.eventObs.subscribe(({ data, loading }) => {
-                    this.event = data.event;
-                    this.loading = loading;
 
-                });
+                this.eventId.next(eventId);
+
             })
     }
     ngOnDestroy() {

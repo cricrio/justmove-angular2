@@ -1,6 +1,6 @@
 <md-card>
     <event-card-header [event]="event"></event-card-header>
-    <img md-card-image class="image" src="{{event.picture}}">
+    <img md-card-image class="image" src="{{event.picture}}" [routerLink]="['/event', event._id]">
     <!-- <event-image images="eventCard.event.image" ui-sref="eventDetails({ eventId : '{{eventCard.event._id}}' })"></event-image> -->
 
     <div layout="row">
@@ -11,5 +11,4 @@
             <span>{{event.location}}</span>
         </div>
     </div>
-
 </md-card>

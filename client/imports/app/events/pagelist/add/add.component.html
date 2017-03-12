@@ -6,20 +6,20 @@
     <form [formGroup]="addForm" layout="column" (ngSubmit)="addEvent()">
         <md-input-container>
             <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
-            <input md-input required formControlName="title" placeholder="Nom" />
+            <input mdInput required formControlName="title" placeholder="Nom" />
         </md-input-container>
         <md-input-container>
             <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
-            <input md-input required [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" ng2-datetime-picker date-only="true"/>
+            <input mdInput required [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" ng2-datetime-picker date-only="true"/>
         </md-input-container>
         <!-- <event-input-date></event-input-date> -->
         <md-input-container>
             <!-- <md-icon md-svg-icon="maps:ic_place_24px"></md-icon> -->
-            <input md-input required formControlName="location" placeholder="Lieux" />
+            <input mdInput required formControlName="location" placeholder="Lieux" />
         </md-input-container>
         <md-input-container>
             <md-icon md-svg-icon="action:ic_description_24px"></md-icon>
-            <textarea md-input formControlName="description" md-maxlength="1500" rows="3" placeholder="Description"></textarea>
+            <textarea mdInput formControlName="description" md-maxlength="1500" rows="3" placeholder="Description"></textarea>
         </md-input-container>
         <label>Catégories</label>
         <event-categorie-selector (onCategorieSelected)="onCategorieSelected($event)"></event-categorie-selector>

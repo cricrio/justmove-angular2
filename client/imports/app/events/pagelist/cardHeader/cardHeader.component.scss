@@ -1,8 +1,11 @@
-md-card-avatar {
-    width: 55px !important;
-    height: 55px !important;
+// md-card-avatar {
+//     width: 55px !important;
+//     height: 55px !important;
+// }
+.owner-avatar{
+  border-radius: 50%;
+  height: 50px;
 }
-
 md-card-header-text {
     padding-left: 10px;
 }

@@ -39,9 +39,15 @@ export class EventDetailsAddGuestButtonComponent {
                 eventid: this.event._id,
                 userid: Meteor.userId()
             },
-            optimisticResponse: optimisticAdding()
+            //optimisticResponse: optimisticAdding()
 
-        });
+        })
+        .toPromise()
+        .then(({ data }) => {
+            console.log('got data', data);
+        }).catch((error) => {
+            console.log('there was an error sending the query', error);
+        });;
     }
 
 }
@@ -51,11 +57,11 @@ function optimisticAdding(): Object {
     return {
         __typename: 'Mutation',
         submitComment: {
-            __typename: 'string',
-            id: null,
-            postedBy,
-            content,
-            createdAt: +new Date,
+            // __typename: 'string',
+            // id: null,
+            // postedBy,
+            // content,
+            // createdAt: +new Date,
         }
     };
 }

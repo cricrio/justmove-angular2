@@ -8,10 +8,7 @@ import style from './card.component.scss';
   styles: [style],
   template
 })
-export class EventCardComponent implements OnInit{
+export class EventCardComponent {
   @Input() event: JmEvent;
-  constructor(){}
-  ngOnInit(){
-    console.log(this.event);
-  }
+
 }

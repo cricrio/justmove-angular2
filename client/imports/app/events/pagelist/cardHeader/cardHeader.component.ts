@@ -8,6 +8,6 @@ import style from './cardHeader.component.scss';
   template
 })
 export class EventCardHeaderComponent{
-  @Input() event :Event;
-  constructor(){}
+  @Input() event :any;
+
 }

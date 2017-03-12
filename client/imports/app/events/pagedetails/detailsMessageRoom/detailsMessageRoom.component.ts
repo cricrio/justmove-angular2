@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MeteorObservable } from 'meteor-rxjs';
-import {MessageCollection} from '../../../../../../both/collections/message.collection'; Component
+import {MessageCollection} from '../../../../../../both/collections/message.collection';
 import {Message} from '../../../../../../both/models/message.model';
 import template from './detailsMessageRoom.component.html';
 import style from './detailsMessageRoom.component.scss';

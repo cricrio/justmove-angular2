@@ -8,6 +8,7 @@ export const event = {
         return {_id: event.owner, name: user.profile.name, picture: user.profile.picture}
     },
     guests(event) {
+      console.log(`guests called ${JSON.stringify(getUserListFromUserIds(event.guestids),null,2)}`)
         return getUserListFromUserIds(event.guestids);
     },
     organisators(event) {

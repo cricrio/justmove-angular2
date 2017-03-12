@@ -19,7 +19,7 @@ export class EventCategorieSelectorComponent implements OnInit {
     categorieEvent: Categorie;
     showChange: boolean;
 
-    constructor() { }
+    
     ngOnInit() {
 
         this.categorieSub = MeteorObservable.subscribe('categories').subscribe(() => {

@@ -3,6 +3,8 @@ import {Subscription} from 'rxjs/Subscription';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
 import gql from 'graphql-tag';
 
+import {EventService} from '../../../../services/services';
+
 import template from './guestsList.component.html';
 import style from './guestsList.component.scss';
 
@@ -15,23 +17,18 @@ export class EventDetailsGuestsListComponent implements OnInit {
     @Input() event: any;
     guestListObs: ApolloQueryObservable<any>;
     guestListSub: Subscription;
-    GuestsQuery = gql`query getGuests($id : String){
-    guestsFromEvent(id : $id)
-  }`;
     guestList: string[];
     loading: boolean;
 
-    constructor(private apollo: Angular2Apollo) { }
+
+    constructor(private eventService: EventService) { }
     ngOnInit() {
-        this.guestListObs = this.apollo.watchQuery({
-            query: this.GuestsQuery,
-            variables: {
-                id: this.event._id
-            }
-        });
-        this.guestListSub = this.guestListObs.subscribe(({ data, loading }) => {
-            this.loading = loading;
-            this.guestList = data.guestsFromEvent;
-        })
+        this.guestListObs = this.eventService.getGuests();
+        console.log(this.guestListObs);
+        // this.guestListSub = this.guestListObs.subscribe(({ data, loading }) => {
+        //     console.log(data);
+        //     this.loading = loading;
+        //     this.guestList = data.guestsFromEvent;
+        // })
     }
 }
