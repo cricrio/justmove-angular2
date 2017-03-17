@@ -3,6 +3,10 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from "./app.component";
 import { RouterModule } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs/Subject';
+
+
 import { MaterialModule } from "@angular/material";
 import {MomentModule} from 'angular2-moment';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
@@ -28,7 +32,7 @@ import {servicesInjectables} from '../services/services';
 /*
 Services
 */
-import {UserService} from '../services/services';
+import {UserService, EventService} from '../services/services';
 
 // Create the client as outlined above
 const client = new ApolloClient(meteorClientConfig());
@@ -72,7 +76,19 @@ export function provideClient(): ApolloClient {
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor(private userService: UserService) {
-        userService.setCurrentUser();
+    private eventId: Subject<string> = new Subject<string>();
+
+    constructor(private userService: UserService,
+        private route: ActivatedRoute,
+        private eventService: EventService) {
+        this.userService.setCurrentUser();
+        this.eventService.setCurrentEvent(this.eventId);
+        this.route.params
+            .map(params => params['eventId'])
+            .subscribe(eventId => {
+                if (eventId) {
+                    this.eventId.next(eventId);
+                }
+            })
     }
 }

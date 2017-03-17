@@ -34,7 +34,11 @@ query getEvents{
 
 export const guestsQuery = gql`
 query getGuests($id: String){
-  guestsFromEvent(id : $id)
+  guests(id : $id){
+    _id,
+    picture,
+    name
+  }
 }
 `;
 

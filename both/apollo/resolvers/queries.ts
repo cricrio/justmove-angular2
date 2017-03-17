@@ -1,5 +1,6 @@
 import {EventCollection} from '../../collections/event.collection';
 
+import {getUsersFromIds} from './methods';
 export const queries = {
     event(root, args, context) {
 
@@ -15,20 +16,20 @@ export const queries = {
         return EventCollection.find({}).fetch();
 
     },
-    guestsFromEvent(root, args, context) {
+    guests(root, args, context) {
         console.log("called")
         const event = EventCollection.findOne({ _id: args.id });
         if (event) {
           console.log(JSON.stringify(event,null,2));
-            return event.guestids;
+            return getUsersFromIds(event.guestids);
         } else {
             throw new Error("404, event not found");
         }
     },
-    organisatorsFromEvent(root, args, context) {
+    organisators(root, args, context) {
         const event = EventCollection.findOne({ _id: args.id });
         if (event) {
-            return event.organisators;
+            return getUsersFromIds(event.organisators);
         } else {
             throw new Error("404, event not found");
         }

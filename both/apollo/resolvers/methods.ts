@@ -1,6 +1,6 @@
  import {Meteor} from 'meteor/meteor';
 
-export function getUserListFromUserIds(list : any[]) {
+export function getUsersFromIds(list : any[]) {
     // check(list, Array);
     console.log(list);
     let people = []

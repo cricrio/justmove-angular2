@@ -1,6 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
 import gql from 'graphql-tag';
 
@@ -8,16 +9,18 @@ import {User,userQuery} from '../models/user.model';
 
 @Injectable()
 export class UserService {
-    private userObs: ApolloQueryObservable<any>;
+    private userObs = new BehaviorSubject<any>(null);
 
     constructor(private apollo: Angular2Apollo) {
 
     }
     public setCurrentUser() {
-        this.userObs = this.apollo.watchQuery({
+        this.apollo.watchQuery({
             query: userQuery,
             variables: { id: Meteor.userId() }
-        });
+        }).subscribe(({data,loading})=>{
+          this.userObs.next(data.user);
+        })
     }
     public getCurrentUserObs(): Observable<any> {
         return this.userObs;

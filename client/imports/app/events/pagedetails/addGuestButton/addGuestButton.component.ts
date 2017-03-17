@@ -22,9 +22,8 @@ export class EventDetailsAddGuestButtonComponent {
     user: any;
     loading:true;
     constructor(private apollo: Angular2Apollo, private userService: UserService) {
-        userService.getCurrentUserObs().subscribe(({data, loading}) => {
-            this.user = data.user;
-            this.loading = loading;
+        userService.getCurrentUserObs().subscribe(user => {
+            this.user = user;
         });
     }
     private isComing(): boolean {

@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
 import gql from 'graphql-tag';
 
@@ -15,9 +16,9 @@ import style from './guestsList.component.scss';
 })
 export class EventDetailsGuestsListComponent implements OnInit {
     @Input() event: any;
-    guestListObs: ApolloQueryObservable<any>;
+    guestListObs: BehaviorSubject<any[]>;
     guestListSub: Subscription;
-    guestList: string[];
+    guests: any[];
     loading: boolean;
 
 
@@ -25,10 +26,10 @@ export class EventDetailsGuestsListComponent implements OnInit {
     ngOnInit() {
         this.guestListObs = this.eventService.getGuests();
         console.log(this.guestListObs);
-        // this.guestListSub = this.guestListObs.subscribe(({ data, loading }) => {
-        //     console.log(data);
-        //     this.loading = loading;
-        //     this.guestList = data.guestsFromEvent;
-        // })
+        this.guestListSub = this.guestListObs.subscribe(guests => {
+            console.log("subscribe");
+            console.log(guests);
+            this.guests = guests;
+        })
     }
 }

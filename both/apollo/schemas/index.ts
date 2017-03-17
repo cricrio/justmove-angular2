@@ -25,8 +25,8 @@ export const typeDefs = [`
     event(id: String): Event
     events: [Event]
     user(id: String): User
-    guestsFromEvent(id: String ): [String]
-    organisatorsFromEvent(id: String ): [String]
+    guests(id: String ): [User]
+    organisators(id: String ): [User]
   }
 
   type Mutation {

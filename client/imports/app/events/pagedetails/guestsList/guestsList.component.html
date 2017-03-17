@@ -1,4 +1,5 @@
 <p *ngIf="loading">
     Loading...
 </p>
-<event-list-users [users]="guestList" *ngIf="!loading && guestList"></event-list-users>
+<!-- <event-list-users [users]="guestList" *ngIf="!loading && guestList"></event-list-users> -->
+<event-user [user]="user" *ngFor="let user of guests"  class="list-users"  layout="column" ></event-user>

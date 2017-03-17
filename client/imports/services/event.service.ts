@@ -17,19 +17,16 @@ import {
 export class EventService {
     private eventId: Subject<string>;
     private event = new BehaviorSubject<any>(null);
-    private eventObs: ApolloQueryObservable<any>;
-    private guestsObs: ApolloQueryObservable<any>;
+    private guests = new BehaviorSubject<any[]>(null);
+
 
     constructor(private apollo: Angular2Apollo) { }
 
     setCurrentEvent(eventId: Subject<string>): BehaviorSubject<any> {
+console.log("setting")
         this.eventId = eventId;
-        subscribeEvent(eventId);
-        this.apollo.watchQuery({
-            query: guestsQuery,
-            variables: { id: eventId },
-            pollInterval: 5000
-        })
+        this.subscribeEvent(eventId);
+        this.subscribeGuests(eventId);
 
         return this.event;
     }
@@ -46,8 +43,8 @@ export class EventService {
         });
     }
 
-    getGuests() {
-        return this.guestsObs;
+    getGuests(): BehaviorSubject<any[]> {
+        return this.guests;
     }
 
     getOrganisators(id: string) {
@@ -64,9 +61,29 @@ export class EventService {
             optimisticResponse: optimisticAdding()
 
         });
+    };
+
+    private subscribeEvent(eventId: Subject<string>) {
+
+        this.apollo.watchQuery({
+            query: eventQuery,
+            variables: { id: eventId }
+        }).subscribe(({data, loading}) => {
+            this.event.next(data.event);
+        });
+    };
+    //helpers
+    private subscribeGuests(eventId: Subject<string>) {
+
+        this.apollo.watchQuery({
+            query: guestsQuery,
+            variables: { id: eventId },
+            pollInterval: 5000
+        }).subscribe(({data, loading}) => {
+            console.log(data.guests)
+            this.guests.next(data.guests);
+        });
     }
-
-
 }
 
 export var eventServiceInjectables: Array<any> = [
@@ -74,15 +91,8 @@ export var eventServiceInjectables: Array<any> = [
 ];
 
 //helpers
-function subscribeEvent(eventId: Subject<string>){
 
-   this.apollo.watchQuery({
-       query: eventQuery,
-       variables: { id: eventId }
-   }).subscribe(({data, loading}) => {
-       this.event.next(data.event);
-   });
-}
+
 
 function optimisticAdding(): Object {
     return {
