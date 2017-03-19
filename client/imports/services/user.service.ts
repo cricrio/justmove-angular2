@@ -9,7 +9,7 @@ import {User,userQuery} from '../models/user.model';
 
 @Injectable()
 export class UserService {
-    private userObs = new BehaviorSubject<any>(null);
+    private user = new BehaviorSubject<any>(null);
 
     constructor(private apollo: Angular2Apollo) {
 
@@ -19,11 +19,11 @@ export class UserService {
             query: userQuery,
             variables: { id: Meteor.userId() }
         }).subscribe(({data,loading})=>{
-          this.userObs.next(data.user);
+          this.user.next(data.user);
         })
     }
-    public getCurrentUserObs(): Observable<any> {
-        return this.userObs;
+    public getCurrentUser(): BehaviorSubject<any> {
+        return this.user;
     }
 
     public getUser(id: string): Observable<any> {

@@ -13,6 +13,8 @@ import {
     addGuestMutation
 } from '../models/event.model';
 
+import {UserService} from './services';
+
 @Injectable()
 export class EventService {
     private eventId: Subject<string>;
@@ -20,10 +22,12 @@ export class EventService {
     private guests = new BehaviorSubject<any[]>(null);
 
 
-    constructor(private apollo: Angular2Apollo) { }
+    constructor(
+        private apollo: Angular2Apollo
+    ) { }
 
     setCurrentEvent(eventId: Subject<string>): BehaviorSubject<any> {
-console.log("setting")
+        console.log("setting")
         this.eventId = eventId;
         this.subscribeEvent(eventId);
         this.subscribeGuests(eventId);
@@ -51,23 +55,39 @@ console.log("setting")
         //TO-DO
     }
 
-    addGuest() {
+    addGuest(user: any) {
+        // const user = this.userService.getCurrentUser().getValue();
+        // console.log(user)
         this.apollo.mutate({
             mutation: addGuestMutation,
             variables: {
                 eventid: this.eventId,
-                userid: Meteor.userId()
+                userid: Meteor.userId(),
             },
-            optimisticResponse: optimisticAdding()
+            optimisticResponse: optimisticGuest(user),
+            updateQueries: {
+                getGuests: (previousResult, { mutationResult }) => {
+                    const newGuest = mutationResult.data.addGuest;
+                    const prevGuests = previousResult.entry.guests;
+
+                    return {
+                        entry: Object.assign(previousResult.entry, {
+                            comments: [newGuest, ...prevGuests]
+                        })
+                    };
+                },
+            },
+
 
         });
+
     };
 
     private subscribeEvent(eventId: Subject<string>) {
 
         this.apollo.watchQuery({
             query: eventQuery,
-            variables: { id: eventId }
+            variables: { id: eventId },
         }).subscribe(({data, loading}) => {
             this.event.next(data.event);
         });
@@ -92,17 +112,14 @@ export var eventServiceInjectables: Array<any> = [
 
 //helpers
 
-
-
-function optimisticAdding(): Object {
+function optimisticGuest(user: any): Object {
     return {
-        // __typename: 'Mutation',
-        // submitComment: {
-        //     __typename: 'string',
-        //     id: null,
-        //     postedBy,
-        //     content,
-        //     createdAt: +new Date,
-        //}
+        __typename: 'Mutation',
+        addGuest: {
+            __typename: 'User',
+            id: user._id,
+            name: user.name,
+            picture: user.picture,
+        }
     };
 }

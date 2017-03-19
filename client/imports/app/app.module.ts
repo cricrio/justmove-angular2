@@ -78,9 +78,11 @@ export function provideClient(): ApolloClient {
 export class AppModule {
     private eventId: Subject<string> = new Subject<string>();
 
-    constructor(private userService: UserService,
+    constructor(
+        private userService: UserService,
         private route: ActivatedRoute,
-        private eventService: EventService) {
+        private eventService: EventService
+    ) {
         this.userService.setCurrentUser();
         this.eventService.setCurrentEvent(this.eventId);
         this.route.params

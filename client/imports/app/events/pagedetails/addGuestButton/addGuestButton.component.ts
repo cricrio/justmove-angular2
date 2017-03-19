@@ -22,7 +22,7 @@ export class EventDetailsAddGuestButtonComponent {
     user: any;
     loading:true;
     constructor(private apollo: Angular2Apollo, private userService: UserService) {
-        userService.getCurrentUserObs().subscribe(user => {
+        userService.getCurrentUser().subscribe(user => {
             this.user = user;
         });
     }
