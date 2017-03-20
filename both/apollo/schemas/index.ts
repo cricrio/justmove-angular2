@@ -32,8 +32,7 @@ export const typeDefs = [`
   type Mutation {
     addGuest (
       eventId : String!
-      userId: String!
-    ): Event
+    ): User
   }
 
   schema {

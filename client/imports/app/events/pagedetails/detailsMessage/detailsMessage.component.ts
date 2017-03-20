@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Message} from '../../../../../../both/models/message.model';
 import {Subscription} from 'rxjs/Subscription';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import gql from 'graphql-tag';
 import template from './detailsMessage.component.html';
 import style from './detailsMessage.component.scss';
@@ -26,7 +26,7 @@ export class EventDetailsMessageComponent implements OnInit{
     private userObs: ApolloQueryObservable<any>;
 
 
-    constructor(private apollo: Angular2Apollo) {
+    constructor(private apollo: Apollo) {
 
     }
     ngOnInit() {

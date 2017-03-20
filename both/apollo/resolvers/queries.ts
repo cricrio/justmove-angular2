@@ -3,7 +3,7 @@ import {EventCollection} from '../../collections/event.collection';
 import {getUsersFromIds} from './methods';
 export const queries = {
     event(root, args, context) {
-
+        console.log(args);
         const event = EventCollection.findOne({ _id: args.id });
         if (event) {
             return event;
@@ -17,7 +17,6 @@ export const queries = {
 
     },
     guests(root, args, context) {
-        console.log("called")
         const event = EventCollection.findOne({ _id: args.id });
         if (event) {
           console.log(JSON.stringify(event,null,2));

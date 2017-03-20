@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 import {
@@ -17,20 +17,19 @@ import {UserService} from './services';
 
 @Injectable()
 export class EventService {
-    private eventId: Subject<string>;
+    private eventId: string;
     private event = new BehaviorSubject<any>(null);
     private guests = new BehaviorSubject<any[]>(null);
 
 
     constructor(
-        private apollo: Angular2Apollo
+        private apollo: Apollo
     ) { }
 
-    setCurrentEvent(eventId: Subject<string>): BehaviorSubject<any> {
-        console.log("setting")
+    setCurrentEvent(eventId: string): BehaviorSubject<any> {
         this.eventId = eventId;
-        this.subscribeEvent(eventId);
-        this.subscribeGuests(eventId);
+        this.subscribeEvent(this.eventId);
+        this.subscribeGuests(this.eventId);
 
         return this.event;
     }
@@ -48,6 +47,7 @@ export class EventService {
     }
 
     getGuests(): BehaviorSubject<any[]> {
+        console.log("quesyts?")
         return this.guests;
     }
 
@@ -58,32 +58,34 @@ export class EventService {
     addGuest(user: any) {
         // const user = this.userService.getCurrentUser().getValue();
         // console.log(user)
+        console.log("adding guesy");
         this.apollo.mutate({
             mutation: addGuestMutation,
             variables: {
                 eventid: this.eventId,
-                userid: Meteor.userId(),
             },
-            optimisticResponse: optimisticGuest(user),
             updateQueries: {
                 getGuests: (previousResult, { mutationResult }) => {
+                    console.log("update query");
                     const newGuest = mutationResult.data.addGuest;
-                    const prevGuests = previousResult.entry.guests;
-
-                    return {
-                        entry: Object.assign(previousResult.entry, {
-                            comments: [newGuest, ...prevGuests]
-                        })
-                    };
-                },
+                    const prevGuests = previousResult.guests;
+                    console.log("muta " + JSON.stringify(mutationResult.data.addGuest, null, 2));
+                    console.log([newGuest, ...prevGuests])
+                    return [newGuest, ...prevGuests]
+                }
             },
+            optimisticResponse: optimisticGuest(user),
 
 
-        });
+
+        }).subscribe(({data, loading}) => {
+            console.log(data);
+            console.log(loading);
+        })
 
     };
 
-    private subscribeEvent(eventId: Subject<string>) {
+    private subscribeEvent(eventId: string) {
 
         this.apollo.watchQuery({
             query: eventQuery,
@@ -93,7 +95,7 @@ export class EventService {
         });
     };
     //helpers
-    private subscribeGuests(eventId: Subject<string>) {
+    private subscribeGuests(eventId: string) {
 
         this.apollo.watchQuery({
             query: guestsQuery,
@@ -113,13 +115,14 @@ export var eventServiceInjectables: Array<any> = [
 //helpers
 
 function optimisticGuest(user: any): Object {
+    console.log(user);
     return {
         __typename: 'Mutation',
         addGuest: {
-            __typename: 'User',
             id: user._id,
+            __typename: 'User',
             name: user.name,
-            picture: user.picture,
-        }
-    };
-}
+            picture: user.picture
+        },
+    }
+};

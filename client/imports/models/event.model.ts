@@ -43,10 +43,11 @@ query getGuests($id: String){
 `;
 
 export const addGuestMutation: any = gql`
-  mutation addGuest($eventid: String! , $userid: String! ){
-    addGuest(eventId: $eventid, userId: $userid) {
+  mutation addGuest($eventid: String!){
+    addGuest(eventId: $eventid) {
       _id
-      guestids
+      name
+      picture
     }
 }
 `;

@@ -3,7 +3,7 @@ import { ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
-import {ApolloQueryObservable} from 'angular2-apollo';
+import {ApolloQueryObservable} from 'apollo-angular';
 
 import template from './details.component.html';
 import style from './details.component.scss';
@@ -32,17 +32,17 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.eventObs = this.eventService.setCurrentEvent(this.eventId);
-        this.eventSub = this.eventObs.subscribe(event => {
-            this.event = event;
-            console.log(event);
-        })
+
+
         this.route.params
             .map(params => params['eventId'])
             .subscribe(eventId => {
 
-                this.eventId.next(eventId);
-
+                this.eventObs = this.eventService.setCurrentEvent(eventId);
+                this.eventSub = this.eventObs.subscribe(event => {
+                    this.event = event;
+                    console.log(event);
+                })
             })
     }
     ngOnDestroy() {

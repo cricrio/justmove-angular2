@@ -4,14 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from "./app.component";
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute} from '@angular/router';
-import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 
 import { MaterialModule } from "@angular/material";
 import {MomentModule} from 'angular2-moment';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 
-import { ApolloModule } from 'angular2-apollo';
+import { ApolloModule } from 'apollo-angular';
 import ApolloClient from 'apollo-client';
 import { meteorClientConfig } from 'meteor/apollo';
 
@@ -76,7 +76,6 @@ export function provideClient(): ApolloClient {
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    private eventId: Subject<string> = new Subject<string>();
 
     constructor(
         private userService: UserService,
@@ -84,13 +83,5 @@ export class AppModule {
         private eventService: EventService
     ) {
         this.userService.setCurrentUser();
-        this.eventService.setCurrentEvent(this.eventId);
-        this.route.params
-            .map(params => params['eventId'])
-            .subscribe(eventId => {
-                if (eventId) {
-                    this.eventId.next(eventId);
-                }
-            })
     }
 }

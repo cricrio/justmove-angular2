@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
-import { ApolloQueryObservable } from 'angular2-apollo';
+import { ApolloQueryObservable } from 'apollo-angular';
 
 import template from './list.component.html';
 import style from './list.component.scss';
@@ -22,7 +22,7 @@ import {
     template,
     styles: [style]
 })
-export class EventsListComponent implements OnInit {
+export class EventsListComponent implements OnInit,OnDestroy {
     eventsObs: ApolloQueryObservable<any>;
     eventsSub: Subscription;
     events: any;
@@ -42,6 +42,9 @@ export class EventsListComponent implements OnInit {
             this.loading = data.loading;
         });
 
+    }
+    ngOnDestroy(){
+        this.eventsSub.unsubscribe();
     }
     islogin(): boolean {
         return this.userService.isLogIn();

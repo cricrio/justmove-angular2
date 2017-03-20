@@ -2,7 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 import {User,userQuery} from '../models/user.model';
@@ -11,7 +11,7 @@ import {User,userQuery} from '../models/user.model';
 export class UserService {
     private user = new BehaviorSubject<any>(null);
 
-    constructor(private apollo: Angular2Apollo) {
+    constructor(private apollo: Apollo) {
 
     }
     public setCurrentUser() {
