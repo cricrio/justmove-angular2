@@ -27,8 +27,6 @@ export class EventDetailsGuestsListComponent implements OnInit {
         this.guestListObs = this.eventService.getGuests();
         console.log(this.guestListObs);
         this.guestListSub = this.guestListObs.subscribe(guests => {
-            console.log("subscribe");
-            console.log(guests);
             this.guests = guests;
         })
     }

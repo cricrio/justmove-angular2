@@ -1,6 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
@@ -17,6 +18,8 @@ import {UserService} from './services';
 
 @Injectable()
 export class EventService {
+    private eventSub: Subscription;
+    private guestsSub: Subscription;
     private eventId: string;
     private event = new BehaviorSubject<any>(null);
     private guests = new BehaviorSubject<any[]>(null);
@@ -47,7 +50,6 @@ export class EventService {
     }
 
     getGuests(): BehaviorSubject<any[]> {
-        console.log("quesyts?")
         return this.guests;
     }
 
@@ -69,9 +71,12 @@ export class EventService {
                     console.log("update query");
                     const newGuest = mutationResult.data.addGuest;
                     const prevGuests = previousResult.guests;
-                    console.log("muta " + JSON.stringify(mutationResult.data.addGuest, null, 2));
-                    console.log([newGuest, ...prevGuests])
-                    return [newGuest, ...prevGuests]
+                    if (prevGuests.length == 0) {
+                      console.log("prevGuest empty");
+                        return [newGuest];
+                    } else {
+                        return [newGuest, ...prevGuests]
+                    }
                 }
             },
             optimisticResponse: optimisticGuest(user),
@@ -86,8 +91,10 @@ export class EventService {
     };
 
     private subscribeEvent(eventId: string) {
-
-        this.apollo.watchQuery({
+        if (this.eventSub) {
+            this.eventSub.unsubscribe();
+        }
+        this.eventSub = this.apollo.watchQuery({
             query: eventQuery,
             variables: { id: eventId },
         }).subscribe(({data, loading}) => {
@@ -96,13 +103,14 @@ export class EventService {
     };
     //helpers
     private subscribeGuests(eventId: string) {
-
-        this.apollo.watchQuery({
+        if (this.guestsSub) {
+            this.guestsSub.unsubscribe();
+        }
+        this.guestsSub = this.apollo.watchQuery({
             query: guestsQuery,
             variables: { id: eventId },
             pollInterval: 5000
         }).subscribe(({data, loading}) => {
-            console.log(data.guests)
             this.guests.next(data.guests);
         });
     }
@@ -120,6 +128,7 @@ function optimisticGuest(user: any): Object {
         __typename: 'Mutation',
         addGuest: {
             id: user._id,
+            _id: user._id,
             __typename: 'User',
             name: user.name,
             picture: user.picture
