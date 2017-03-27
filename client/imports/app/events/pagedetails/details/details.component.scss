@@ -1,20 +1,21 @@
 .event-details {
-    .banniere {
+    .banniere-image {
+        width: inherit;
+        bottom: 0;
+        vertical-align: baseline;
+    }
+
+    .guest-button {
+        position: absolute;
+        bottom: 25px;
+        right: 36px;
+    }
+
+    .banniere-contenaire {
+        position: relative;
         width: 100%;
     }
 
-    .banniere-image {
-        width: 100%;
-        vertical-align: baseline;
-    }
-    .guest-button{
-      position: relative;
-      bottom: 10px;
-    }
-    .banniere-contenaire{
-      width: 100%;
-      position: absolute;
-    }
     .event-description {
         background-color: white;
         padding: 20px 50px;
@@ -28,17 +29,16 @@
         margin-bottom: 10px;
         background-color: white;
         padding: 20px;
-
     }
 
     .side-name {
         text-align: center;
     }
-    .side{
-      background-color: white;
-      margin: 10px;
-      padding: 10px;
-      border-radius: 15px;
 
+    .side {
+        background-color: white;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 15px;
     }
 }

@@ -4,7 +4,7 @@
 <div class="event-details" *ngIf="event">
     <div class="banniere-contenaire">
       <img class="banniere-image" src="{{event.picture}}" />
-      <event-details-add-guest-button [(event)]="event"></event-details-add-guest-button>
+      <event-details-add-guest-button class="guest-button"[(event)]="event"></event-details-add-guest-button>
     </div>
 
     <div layout="row">
