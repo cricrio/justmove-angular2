@@ -41,7 +41,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
                 this.eventObs = this.eventService.setCurrentEvent(eventId);
                 this.eventSub = this.eventObs.subscribe(event => {
                     this.event = event;
-                    console.log(event);
                 })
             })
     }

@@ -1,6 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -19,7 +20,12 @@ import {UserService} from './services';
 
 @Injectable()
 export class EventService {
+<<<<<<< HEAD
     private counter = 0;
+=======
+    private eventSub: Subscription;
+    private guestsSub: Subscription;
+>>>>>>> 47b3b777bbd0297dae379ef365efb6e50a3d0d63
     private eventId: string;
     private eventSub: Subscription;
     private guestsSub: Subscription;
@@ -52,6 +58,12 @@ export class EventService {
         });
     }
 
+<<<<<<< HEAD
+=======
+    getGuests(): BehaviorSubject<any[]> {
+        return this.guests;
+    }
+>>>>>>> 47b3b777bbd0297dae379ef365efb6e50a3d0d63
 
     isComing(): Observable<boolean> {
         return this.isComingBeSub;
@@ -69,12 +81,22 @@ export class EventService {
                 getEvent: (prev, { mutationResult }) => {
                     if (!mutationResult.data) { return prev; }
                     const newGuest = mutationResult.data.addGuest;
+<<<<<<< HEAD
                     const prevGuests = prev.event.guests;
                     return {
                         event: Object.assign(prev.event, { guests: [newGuest, ...prevGuests] })
                     };
 
 
+=======
+                    const prevGuests = previousResult.guests;
+                    if (prevGuests.length == 0) {
+                      console.log("prevGuest empty");
+                        return [newGuest];
+                    } else {
+                        return [newGuest, ...prevGuests]
+                    }
+>>>>>>> 47b3b777bbd0297dae379ef365efb6e50a3d0d63
                 }
 
             },
@@ -118,7 +140,11 @@ export class EventService {
         if (this.eventSub) {
             this.eventSub.unsubscribe();
         }
+<<<<<<< HEAD
         this.apollo.watchQuery({
+=======
+        this.eventSub = this.apollo.watchQuery({
+>>>>>>> 47b3b777bbd0297dae379ef365efb6e50a3d0d63
             query: eventQuery,
             variables: { id: eventId },
             pollInterval: 10000
@@ -154,6 +180,7 @@ function optimisticGuest(user: any): Object {
         __typename: 'Mutation',
         addGuest: {
             id: user._id,
+            _id: user._id,
             __typename: 'User',
             name: user.name,
             picture: user.picture
