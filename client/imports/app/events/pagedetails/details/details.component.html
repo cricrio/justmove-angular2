@@ -2,13 +2,14 @@
     Loading...
 </p>
 <div class="event-details" *ngIf="event">
-    <img class="banniere-image" src="{{event.picture}}" />
+    <div class="banniere-contenaire">
+      <img class="banniere-image" src="{{event.picture}}" />
+      <event-details-add-guest-button [(event)]="event"></event-details-add-guest-button>
+    </div>
 
-    <event-details-add-guest-button [(event)]="event"></event-details-add-guest-button>
     <div layout="row">
         <aside class="event-page-left side">
             <h4 class="side-name">Organisateurs</h4>
-            <event-list-users [users]="event.organisators"></event-list-users>
         </aside>
         <div class="event-page-middle" layout="column" flex>
             <event-details-info [event]="event"></event-details-info>
@@ -19,8 +20,7 @@
         </div>
         <aside class="event-page-left side">
             <h4 class="side-name">Participants</h4>
-
-            <event-details-guests-list></event-details-guests-list>
+            <event-list-users [users]="event.guests"></event-list-users>
         </aside>
     </div>
 </div>

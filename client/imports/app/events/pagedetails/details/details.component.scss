@@ -1,6 +1,5 @@
 .event-details {
     .banniere {
-        position: relative;
         width: 100%;
     }
 
@@ -8,7 +7,14 @@
         width: 100%;
         vertical-align: baseline;
     }
-
+    .guest-button{
+      position: relative;
+      bottom: 10px;
+    }
+    .banniere-contenaire{
+      width: 100%;
+      position: absolute;
+    }
     .event-description {
         background-color: white;
         padding: 20px 50px;
@@ -33,6 +39,6 @@
       margin: 10px;
       padding: 10px;
       border-radius: 15px;
-    
+
     }
 }

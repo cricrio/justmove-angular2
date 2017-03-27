@@ -32,7 +32,7 @@ import {servicesInjectables} from '../services/services';
 /*
 Services
 */
-import {UserService, EventService} from '../services/services';
+import {UserService} from '../services/services';
 
 // Create the client as outlined above
 const client = new ApolloClient(meteorClientConfig());
@@ -80,7 +80,6 @@ export class AppModule {
     constructor(
         private userService: UserService,
         private route: ActivatedRoute,
-        private eventService: EventService
     ) {
         this.userService.setCurrentUser();
     }

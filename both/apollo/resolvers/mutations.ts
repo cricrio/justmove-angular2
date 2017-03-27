@@ -3,11 +3,18 @@ import {getUser} from './methods';
 
 export const mutations = {
     addGuest(root, args, context) {
-        console.log("mtutatu");
-        console.log(context.userId);
-        console.log("adding guest to" + args.eventId);
+        console.log("add");
         EventCollection.update({ _id: args.eventId }, {
             $addToSet: {
+                guestids: context.userId
+            }
+        });
+        return getUser(context.userId);
+    },
+    removeGuest(root, args, context) {
+        console.log("remove");
+        EventCollection.update({ _id: args.eventId }, {
+            $pull: {
                 guestids: context.userId
             }
         });

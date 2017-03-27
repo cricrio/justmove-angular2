@@ -1,1 +1,2 @@
-<button ng-button (click)="addGuest()">Rejoindre</button>
+<button ng-button (click)="addGuest()" *ngIf="isNotComing()">Rejoindre</button>
+<button ng-button (click)="removeGuest()" *ngIf="!isNotComing()">Quitter</button>

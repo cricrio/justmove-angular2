@@ -13,6 +13,11 @@ query getEvent($id: String){
     date
     description
     location
+    guests{
+      _id
+      name
+      picture
+    }
   }
 }`;
 
@@ -49,5 +54,14 @@ export const addGuestMutation: any = gql`
       name
       picture
     }
+}
+`;
+export const removeGuestMutation: any = gql`
+mutation addGuest($eventid: String!){
+  removeGuest(eventId: $eventid) {
+    _id
+    name
+    picture
+  }
 }
 `;

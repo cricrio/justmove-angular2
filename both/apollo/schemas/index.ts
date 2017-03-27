@@ -33,6 +33,9 @@ export const typeDefs = [`
     addGuest (
       eventId : String!
     ): User
+    removeGuest (
+      eventId : String!
+    ): User
   }
 
   schema {

@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -10,6 +11,7 @@ import {
     eventQuery,
     eventsListQuery,
     guestsQuery,
+    removeGuestMutation,
     addGuestMutation
 } from '../models/event.model';
 
@@ -17,7 +19,11 @@ import {UserService} from './services';
 
 @Injectable()
 export class EventService {
+    private counter = 0;
     private eventId: string;
+    private eventSub: Subscription;
+    private guestsSub: Subscription;
+    private isComingBeSub = new BehaviorSubject<boolean>(false);
     private event = new BehaviorSubject<any>(null);
     private guests = new BehaviorSubject<any[]>(null);
 
@@ -29,7 +35,7 @@ export class EventService {
     setCurrentEvent(eventId: string): BehaviorSubject<any> {
         this.eventId = eventId;
         this.subscribeEvent(this.eventId);
-        this.subscribeGuests(this.eventId);
+        //this.subscribeGuests(this.eventId);
 
         return this.event;
     }
@@ -46,63 +52,92 @@ export class EventService {
         });
     }
 
-    getGuests(): BehaviorSubject<any[]> {
-        console.log("quesyts?")
-        return this.guests;
-    }
 
-    getOrganisators(id: string) {
-        //TO-DO
+    isComing(): Observable<boolean> {
+        return this.isComingBeSub;
     }
-
     addGuest(user: any) {
-        // const user = this.userService.getCurrentUser().getValue();
-        // console.log(user)
-        console.log("adding guesy");
+
+        this.isComingBeSub.next(!this.isComingBeSub.getValue());
+
         this.apollo.mutate({
             mutation: addGuestMutation,
             variables: {
                 eventid: this.eventId,
             },
             updateQueries: {
-                getGuests: (previousResult, { mutationResult }) => {
-                    console.log("update query");
+                getEvent: (prev, { mutationResult }) => {
+                    if (!mutationResult.data) { return prev; }
                     const newGuest = mutationResult.data.addGuest;
-                    const prevGuests = previousResult.guests;
-                    console.log("muta " + JSON.stringify(mutationResult.data.addGuest, null, 2));
-                    console.log([newGuest, ...prevGuests])
-                    return [newGuest, ...prevGuests]
+                    const prevGuests = prev.event.guests;
+                    return {
+                        event: Object.assign(prev.event, { guests: [newGuest, ...prevGuests] })
+                    };
+
+
                 }
+
             },
             optimisticResponse: optimisticGuest(user),
-
-
-
         }).subscribe(({data, loading}) => {
-            console.log(data);
+            console.log(loading);
+        })
+
+    };
+    removeGuest(user: any) {
+
+        this.isComingBeSub.next(!this.isComingBeSub.getValue());
+
+        this.apollo.mutate({
+            mutation: removeGuestMutation,
+            variables: {
+                eventid: this.eventId,
+            },
+            updateQueries: {
+                getEvent: (prev, { mutationResult }) => {
+                    if (!mutationResult.data) { return prev; }
+                    const newGuest = mutationResult.data.addGuest;
+                    const prevGuests = prev.event.guests;
+                    return {
+                        event: Object.assign(prev.event,
+                            { guests: prev.event.guests.filter(user => user._id != Meteor.userId()) }
+                        )
+                    };
+
+                }
+
+            },
+            optimisticResponse: optimisticGuest(user),
+        }).subscribe(({data, loading}) => {
             console.log(loading);
         })
 
     };
 
     private subscribeEvent(eventId: string) {
-
+        if (this.eventSub) {
+            this.eventSub.unsubscribe();
+        }
         this.apollo.watchQuery({
             query: eventQuery,
             variables: { id: eventId },
+            pollInterval: 10000
         }).subscribe(({data, loading}) => {
+            const isComing = data.event.guests.filter(user => user._id === Meteor.userId());
+            this.isComingBeSub.next(isComing.length != 0);
             this.event.next(data.event);
         });
     };
     //helpers
     private subscribeGuests(eventId: string) {
-
-        this.apollo.watchQuery({
+        if (this.guestsSub) {
+            this.guestsSub.unsubscribe();
+        }
+        this.guestsSub = this.apollo.watchQuery({
             query: guestsQuery,
             variables: { id: eventId },
             pollInterval: 5000
         }).subscribe(({data, loading}) => {
-            console.log(data.guests)
             this.guests.next(data.guests);
         });
     }
@@ -115,7 +150,6 @@ export var eventServiceInjectables: Array<any> = [
 //helpers
 
 function optimisticGuest(user: any): Object {
-    console.log(user);
     return {
         __typename: 'Mutation',
         addGuest: {
