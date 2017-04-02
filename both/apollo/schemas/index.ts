@@ -29,6 +29,16 @@ export const typeDefs = [`
     organisators(id: String ): [User]
   }
 
+  input EventInput{
+    title: String
+    date: Date
+    categorie: String
+    location: String
+    description: String
+    picture: String
+    owner: String
+    organisatorids :String
+  }
   type Mutation {
     addGuest (
       eventId : String!
@@ -36,6 +46,7 @@ export const typeDefs = [`
     removeGuest (
       eventId : String!
     ): User
+    addEvent(event :EventInput): Event
   }
 
   schema {

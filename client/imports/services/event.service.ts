@@ -13,6 +13,7 @@ import {
     eventsListQuery,
     guestsQuery,
     removeGuestMutation,
+    addEventMutation,
     addGuestMutation
 } from '../models/event.model';
 
@@ -61,6 +62,21 @@ export class EventService {
     isComing(): Observable<boolean> {
         return this.isComingBeSub;
     }
+
+    addEvent(move :any){
+      this.apollo.mutate(
+        {
+          mutation: addEventMutation,
+          variables : {
+            event: move
+          }
+        }
+      ).subscribe(({data, loading}) => {
+          console.log(data);
+          console.log(loading);
+      });
+    }
+
     addGuest(user: any) {
 
         this.isComingBeSub.next(!this.isComingBeSub.getValue());

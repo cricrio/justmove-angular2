@@ -65,3 +65,19 @@ mutation addGuest($eventid: String!){
   }
 }
 `;
+export const addEventMutation: any = gql`
+mutation addEvent($event: EventInput!){
+  addEvent(event: $event){
+    _id
+    title
+    owner{
+      name
+      picture
+    }
+    picture
+    date
+    categorie
+    location
+  }
+}
+`;
