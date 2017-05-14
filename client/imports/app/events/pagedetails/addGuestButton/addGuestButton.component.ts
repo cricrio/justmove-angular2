@@ -9,7 +9,7 @@ import style from './addGuestButton.component.scss';
 
 import {UserService, EventService} from '../../../../services/services';
 
-import {addGuestMutation,removeGuestMutation} from '../../../../models/event.model';
+import {addGuestMutation,removeGuestMutation} from '../../../../queries/event.query';
 
 @Component({
     selector: 'event-details-add-guest-button',

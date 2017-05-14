@@ -1,5 +1,6 @@
 <md-toolbar color="primary">
-    <h2 md-dialog-title>Créer un événement</h2>
+    <h2 md-dialog-title *ngIf="!updating">Créer un événement</h2>
+    <h2 md-dialog-title *ngIf="updating">Modifier l'événement</h2>
 </md-toolbar>
 
 <md-dialog-content>
@@ -10,7 +11,7 @@
         </md-input-container>
         <md-input-container>
             <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
-            <input mdInput required [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" ng2-datetime-picker date-only="true"/>
+            <input mdInput required formControlName="date" ng2-datetime-picker date-only="true" />
         </md-input-container>
         <!-- <event-input-date></event-input-date> -->
         <md-input-container>
@@ -22,7 +23,7 @@
             <textarea mdInput formControlName="description" md-maxlength="1500" rows="3" placeholder="Description"></textarea>
         </md-input-container>
         <label>Catégories</label>
-        <event-categorie-selector (onCategorieSelected)="onCategorieSelected($event)"></event-categorie-selector>
-        <button md-raised-button color="primary">Ajouter</button>
+        <event-categorie-selector [categorie]="jmEvent.categorie" (onCategorieSelected)="onCategorieSelected($event)"></event-categorie-selector>
+        <button md-raised-button color="primary">{{updating ? "Mettre à jour" : "Ajouter"}}</button>
     </form>
 </md-dialog-content>

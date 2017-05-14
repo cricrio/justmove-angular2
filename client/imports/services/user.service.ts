@@ -5,7 +5,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-import {User,userQuery} from '../models/user.model';
+import {User,userQuery} from '../queries/user.query';
 
 @Injectable()
 export class UserService {

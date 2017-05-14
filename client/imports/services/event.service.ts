@@ -1,13 +1,10 @@
-import {Meteor} from 'meteor/meteor';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Meteor } from 'meteor/meteor';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
-
-import uuid from 'uuid';
 import gql from 'graphql-tag';
 
 import {
@@ -17,9 +14,9 @@ import {
     removeGuestMutation,
     addEventMutation,
     addGuestMutation
-} from '../models/event.model';
+} from '../queries/event.query';
 
-import {UserService} from './services';
+import { UserService } from './services';
 
 @Injectable()
 export class EventService {
@@ -48,11 +45,15 @@ export class EventService {
     getCurrentEvent(): BehaviorSubject<any> {
         return this.event;
     }
+    getCurrentEventValue(): any {
+        return this.event.getValue();
+    }
+
 
     getAllEvents(): ApolloQueryObservable<any> {
         return this.apollo.watchQuery({
             query: eventsListQuery,
-            pollInterval: 50000
+            pollInterval: 5000
         });
     }
 
@@ -65,43 +66,39 @@ export class EventService {
         return this.isComingBeSub;
     }
 
-    addEvent(move :any){
-      move._id = uuid();
-      this.apollo.mutate(
-        {
-          mutation: addEventMutation,
-          variables : {
-            event: move
-          },
-          optimisticResponse : {
-            __typename: 'Mutation',
-            addEvent: {
-                id: move._id,
-                event: move,
-                __typename: 'Event',
-
-            },
-            updateQuery:{
-              getEvents : (prev, { mutationResult }) => {
-                  if (!mutationResult.data) { return prev; }
-                  const newEvent = mutationResult.data.addEvent;
-                  const prevEvents = prev.events;
-                  return {
-                      events: [newEvent, ...prevEvents]
-                  };
-
-
-              }
+    addEvent(move: any) {
+        this.apollo.mutate(
+            {
+                mutation: addEventMutation,
+                variables: {
+                    event: move
+                }
             }
-        }
-
-        }
-      ).subscribe(({data, loading}) => {
-          console.log(data);
-          console.log(loading);
-      });
+        ).subscribe(({ data, loading }) => {
+            console.log(data);
+            console.log(loading);
+        });
     }
-
+    updateEvent(eventId: string, modifiedEvent) {
+        const diff = this.getEventDiff(modifiedEvent,this.event.getValue());
+        if(Object.keys(diff).length === 0){
+            console.log("aucune modification");
+        }else{
+            console.log("Différence ! ")
+            console.log(diff);
+        }
+    }
+    private getEventDiff(modified, original) {
+        delete modified.organisatorids; //pour ne pas le prendre compte dans les diff
+        const keys = Object.keys(modified);
+        const diff = keys.reduce((doff, key) => {
+            if (original[key] !== modified[key] && key !== "__proto__" ) {
+                doff[key] = modified[key];
+            }
+            return doff;
+        }, {});
+        return diff;
+    }
     addGuest(user: any) {
 
         this.isComingBeSub.next(!this.isComingBeSub.getValue());
@@ -126,7 +123,7 @@ export class EventService {
 
             },
             optimisticResponse: optimisticGuest(user),
-        }).subscribe(({data, loading}) => {
+        }).subscribe(({ data, loading }) => {
             console.log(loading);
         })
 
@@ -155,11 +152,15 @@ export class EventService {
 
             },
             optimisticResponse: optimisticGuest(user),
-        }).subscribe(({data, loading}) => {
+        }).subscribe(({ data, loading }) => {
             console.log(loading);
         })
 
     };
+
+    isEventOfUser(): boolean {
+        return Meteor.userId() === this.event.getValue().owner._id;
+    }
 
     private subscribeEvent(eventId: string) {
         if (this.eventSub) {
@@ -170,7 +171,7 @@ export class EventService {
             query: eventQuery,
             variables: { id: eventId },
             pollInterval: 10000
-        }).subscribe(({data, loading}) => {
+        }).subscribe(({ data, loading }) => {
             const isComing = data.event.guests.filter(user => user._id === Meteor.userId());
             this.isComingBeSub.next(isComing.length != 0);
             this.event.next(data.event);
@@ -185,7 +186,7 @@ export class EventService {
             query: guestsQuery,
             variables: { id: eventId },
             pollInterval: 5000
-        }).subscribe(({data, loading}) => {
+        }).subscribe(({ data, loading }) => {
             this.guests.next(data.guests);
         });
     }
