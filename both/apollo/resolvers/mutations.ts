@@ -7,7 +7,7 @@ export const mutations = {
       console.log("adding event");
       const move = args.event;
       EventCollection.insert(move);
-      return args.event;
+      return move;
     },
 
     addGuest(root, args, context) {

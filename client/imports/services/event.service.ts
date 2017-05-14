@@ -6,6 +6,8 @@ import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
+
+import uuid from 'uuid';
 import gql from 'graphql-tag';
 
 import {
@@ -50,7 +52,7 @@ export class EventService {
     getAllEvents(): ApolloQueryObservable<any> {
         return this.apollo.watchQuery({
             query: eventsListQuery,
-            pollInterval: 5000
+            pollInterval: 50000
         });
     }
 
@@ -64,12 +66,35 @@ export class EventService {
     }
 
     addEvent(move :any){
+      move._id = uuid();
       this.apollo.mutate(
         {
           mutation: addEventMutation,
           variables : {
             event: move
-          }
+          },
+          optimisticResponse : {
+            __typename: 'Mutation',
+            addEvent: {
+                id: move._id,
+                event: move,
+                __typename: 'Event',
+
+            },
+            updateQuery:{
+              getEvents : (prev, { mutationResult }) => {
+                  if (!mutationResult.data) { return prev; }
+                  const newEvent = mutationResult.data.addEvent;
+                  const prevEvents = prev.events;
+                  return {
+                      events: [newEvent, ...prevEvents]
+                  };
+
+
+              }
+            }
+        }
+
         }
       ).subscribe(({data, loading}) => {
           console.log(data);
