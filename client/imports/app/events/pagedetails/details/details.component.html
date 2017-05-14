@@ -3,10 +3,10 @@
 </p>
 <div class="event-details" *ngIf="event">
     <div class="banniere-contenaire">
-      <img class="banniere-image" src="{{event.picture}}" />
-      <event-details-add-guest-button class="guest-button"[(event)]="event"></event-details-add-guest-button>
+        <img class="banniere-image" src="{{event.picture}}" />
+        <event-details-add-guest-button class="guest-button" [(event)]="event"></event-details-add-guest-button>
     </div>
-
+    <event-update-button></event-update-button>
     <div layout="row">
         <aside class="event-page-left side">
             <h4 class="side-name">Organisateurs</h4>

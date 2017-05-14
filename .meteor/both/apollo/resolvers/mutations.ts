@@ -9,14 +9,9 @@ export const mutations = {
       EventCollection.insert(move);
       return args.event;
     },
-    // updateEvent(root,args,context){
-    //     if(args.event.owner === context.userId){
-    //         EventCollection.update({_id : args.event._id},{
 
-    //         });
-    //     }
-    // },
     addGuest(root, args, context) {
+        console.log("add");
         EventCollection.update({ _id: args.eventId }, {
             $addToSet: {
                 guestids: context.userId
@@ -25,6 +20,7 @@ export const mutations = {
         return getUser(context.userId);
     },
     removeGuest(root, args, context) {
+        console.log("remove");
         EventCollection.update({ _id: args.eventId }, {
             $pull: {
                 guestids: context.userId
