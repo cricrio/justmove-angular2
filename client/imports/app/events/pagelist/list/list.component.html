@@ -1,7 +1,8 @@
-
-    <event-add-button *ngIf="!islogin()"></event-add-button>
-    <div *ngIf="!loading && events" class="md-padding" layout layout-wrap layout-padding layout-sm="column" layout-xs="column" layout-align="center">
-        <div  class="list" *ngFor="let event of events" flex="45" flex-sm="100" flex-xs="50">
-            <event-card [event]="event"></event-card>
-        </div>
+<event-add-button *ngIf="!islogin()">
+</event-add-button>
+<div *ngIf="!loading && events" class="event-list md-padding" layout layout-wrap layout-padding layout-sm="column" layout-xs="column"
+    layout-align="center">
+    <div class="list" *ngFor="let event of events" flex="45" flex-sm="100" flex-xs="50">
+        <event-card [event]="event"></event-card>
     </div>
+</div>

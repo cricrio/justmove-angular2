@@ -1,5 +1,4 @@
 .event-details {
-  
     .banniere-image {
         width: inherit;
         bottom: 0;
@@ -33,28 +32,15 @@
          width: 100%;
     }
     .event-description {
-        background-color: white;
-        padding: 20px 50px;
-        margin-bottom: 50px;
         min-height: 100px;
+        margin-bottom: 50px;
     }
-
+    .description-label{
+        font-size: 18px;
+        padding: 0 10px 0 0;
+    }
     .event-page-middle {
-        border-radius: 15px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        background-color: white;
-        padding: 20px;
-    }
-
-    .side-name {
-        text-align: center;
-    }
-
-    .side {
-        background-color: white;
-        margin: 10px;
+        margin: 0 10%;
         padding: 10px;
-        border-radius: 15px;
     }
 }

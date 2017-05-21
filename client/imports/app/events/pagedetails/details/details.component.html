@@ -9,9 +9,9 @@
         <event-details-add-guest-button class="right-button" [(event)]="event" *ngIf="! isUserEvent()"></event-details-add-guest-button>
         <event-list-users [users]="event.guests"></event-list-users>
     </div>
-    <div class="event-page-middle">
+    <div class="event-page-middle md-padding">
         <div class="event-description">
-            {{event.description}}
+          <span class='description-label'>Description</span>  {{event.description}}
         </div>
         <event-details-message-room [event]="event"></event-details-message-room>
     </div>
