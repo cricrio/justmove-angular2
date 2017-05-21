@@ -9,13 +9,14 @@ export const mutations = {
       EventCollection.insert(move);
       return args.event;
     },
-    // updateEvent(root,args,context){
-    //     if(args.event.owner === context.userId){
-    //         EventCollection.update({_id : args.event._id},{
-
-    //         });
-    //     }
-    // },
+    updateEvent(root,args,context){
+        const event = EventCollection.findOne({_id: args.event._id});
+        if(event.owner === context.userId){
+            EventCollection.update({_id : args.event._id},{
+                $set : args.diff
+            });
+        }
+    },
     addGuest(root, args, context) {
         EventCollection.update({ _id: args.eventId }, {
             $addToSet: {

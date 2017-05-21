@@ -83,3 +83,19 @@ mutation addEvent($event: EventInput!){
   }
 }
 `;
+export const updateEventMutation: any = gql`
+mutation updateEvent($event: EventInput!){
+  updateEvent(eventId: $eventid) {
+    _id
+    title
+    owner{
+      name
+      picture
+    }
+    picture
+    date
+    categorie
+    location
+  }
+}
+`;

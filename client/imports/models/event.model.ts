@@ -7,5 +7,4 @@ export class JmEvent {
     picture: string = '';
     organisatorids: string[] = [];
     owner: any = '';
-
 }

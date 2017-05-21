@@ -13,7 +13,8 @@ import {
     guestsQuery,
     removeGuestMutation,
     addEventMutation,
-    addGuestMutation
+    addGuestMutation,
+    updateEventMutation
 } from '../queries/event.query';
 
 import { UserService } from './services';
@@ -86,6 +87,17 @@ export class EventService {
         }else{
             console.log("Différence ! ")
             console.log(diff);
+            this.apollo.mutate(
+            {
+                mutation: updateEventMutation,
+                variables: {
+                    event: diff
+                }
+            }
+        ).subscribe(({ data, loading }) => {
+            console.log(data);
+            console.log(loading);
+        });
         }
     }
     private getEventDiff(modified, original) {

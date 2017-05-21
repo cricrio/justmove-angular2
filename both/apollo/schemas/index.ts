@@ -47,6 +47,7 @@ export const typeDefs = [`
       eventId : String!
     ): User
     addEvent(event :EventInput): Event
+    updateEvent(event :EventInput): Event
   }
 
   schema {
