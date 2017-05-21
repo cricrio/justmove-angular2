@@ -4,23 +4,15 @@
 <div class="event-details" *ngIf="event">
     <div class="banniere-contenaire">
         <img class="banniere-image" src="{{event.picture}}" />
-        <event-details-add-guest-button class="guest-button" [(event)]="event"></event-details-add-guest-button>
+        <event-details-info [event]="event"></event-details-info>
+        <event-update-button class="right-button" *ngIf="isUserEvent()"></event-update-button>
+        <event-details-add-guest-button class="right-button" [(event)]="event" *ngIf="! isUserEvent()"></event-details-add-guest-button>
+        <event-list-users [users]="event.guests"></event-list-users>
     </div>
-    <event-update-button></event-update-button>
-    <div layout="row">
-        <aside class="event-page-left side">
-            <h4 class="side-name">Organisateurs</h4>
-        </aside>
-        <div class="event-page-middle" layout="column" flex>
-            <event-details-info [event]="event"></event-details-info>
-            <div class="event-description">
-                {{event.description}}
-            </div>
-            <event-details-message-room [event]="event"></event-details-message-room>
+    <div class="event-page-middle">
+        <div class="event-description">
+            {{event.description}}
         </div>
-        <aside class="event-page-left side">
-            <h4 class="side-name">Participants</h4>
-            <event-list-users [users]="event.guests"></event-list-users>
-        </aside>
+        <event-details-message-room [event]="event"></event-details-message-room>
     </div>
 </div>

@@ -32,8 +32,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-
-
         this.route.params
             .map(params => params['eventId'])
             .subscribe(eventId => {
@@ -42,7 +40,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
                 this.eventSub = this.eventObs.subscribe(event => {
                     this.event = event;
                 })
-            })
+            });
+    }
+    isUserEvent() : boolean{
+        return  this.eventService.isEventOfUser();
     }
     ngOnDestroy() {
         this.eventSub.unsubscribe();

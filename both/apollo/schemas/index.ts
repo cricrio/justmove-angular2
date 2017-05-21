@@ -47,7 +47,10 @@ export const typeDefs = [`
       eventId : String!
     ): User
     addEvent(event :EventInput): Event
-    updateEvent(event :EventInput): Event
+    updateEvent(
+      eventId :String 
+      diff :EventInput
+    ): Event
   }
 
   schema {

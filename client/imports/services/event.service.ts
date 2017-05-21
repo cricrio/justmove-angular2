@@ -80,18 +80,18 @@ export class EventService {
             console.log(loading);
         });
     }
-    updateEvent(eventId: string, modifiedEvent) {
-        const diff = this.getEventDiff(modifiedEvent,this.event.getValue());
+    updateEvent(modifiedEvent) {
+        const diff = this.getEventDiff(modifiedEvent, this.event.getValue());
+        const eventId = this.event.getValue()._id;
         if(Object.keys(diff).length === 0){
             console.log("aucune modification");
         }else{
-            console.log("Différence ! ")
-            console.log(diff);
             this.apollo.mutate(
             {
                 mutation: updateEventMutation,
                 variables: {
-                    event: diff
+                    diff,
+                    eventId
                 }
             }
         ).subscribe(({ data, loading }) => {

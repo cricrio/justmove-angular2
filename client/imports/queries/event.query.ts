@@ -84,8 +84,8 @@ mutation addEvent($event: EventInput!){
 }
 `;
 export const updateEventMutation: any = gql`
-mutation updateEvent($event: EventInput!){
-  updateEvent(eventId: $eventid) {
+mutation updateEvent($eventId: String, $diff: EventInput!){
+  updateEvent(eventId: $eventId ,diff: $diff) {
     _id
     title
     owner{

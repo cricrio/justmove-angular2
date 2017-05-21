@@ -10,9 +10,10 @@ export const mutations = {
       return move;
     },
     updateEvent(root,args,context){
-        const event = EventCollection.findOne({_id: args.event._id});
+        console.log(args.diff);
+        const event = EventCollection.findOne({_id: args.eventId});
         if(event.owner === context.userId){
-            EventCollection.update({_id : args.event._id},{
+            EventCollection.update({_id : args.eventId},{
                 $set : args.diff
             });
         }

@@ -1,11 +1,12 @@
 .event-details {
+  
     .banniere-image {
         width: inherit;
         bottom: 0;
         vertical-align: baseline;
     }
 
-    .guest-button {
+    .right-button {
         position: absolute;
         bottom: 25px;
         right: 36px;
@@ -16,6 +17,21 @@
         width: 100%;
     }
 
+    event-details-info{
+        position: absolute;
+        left: 50%;
+        bottom: 25%;
+        transform: translateX(-50%)translateY(-25%);
+        text-align: center;
+        
+    }
+    event-list-users{
+         position: absolute;
+         left: 50%;
+         bottom: 5%;
+         transform: translateX(-50%)translateY(-5%);
+         width: 100%;
+    }
     .event-description {
         background-color: white;
         padding: 20px 50px;

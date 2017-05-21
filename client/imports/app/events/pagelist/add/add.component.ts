@@ -52,7 +52,7 @@ export class EventAddComponent implements OnInit {
         const jmEvent = this.assembleData();
 
         if (this.updating) {
-            this.eventService.updateEvent(this.jmEvent._id, jmEvent);
+            this.eventService.updateEvent(jmEvent);
         } else {
             this.eventService.addEvent(jmEvent);
         }
