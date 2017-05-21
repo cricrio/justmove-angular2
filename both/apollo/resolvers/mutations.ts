@@ -7,7 +7,7 @@ export const mutations = {
       console.log("adding event");
       const move = args.event;
       EventCollection.insert(move);
-      return args.event;
+      return move;
     },
     updateEvent(root,args,context){
         const event = EventCollection.findOne({_id: args.event._id});
