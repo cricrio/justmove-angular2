@@ -18,6 +18,7 @@ export class EventAddButtonComponent{
   openDialog(){
     this.dialogRef = this.dialog.open(EventAddComponent, {
           width : "75%",
+          position : 'bottom',
           disableClose: false
         });
   }

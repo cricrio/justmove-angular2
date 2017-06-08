@@ -1,9 +1,6 @@
-<md-toolbar color="primary">
-    <h2 md-dialog-title *ngIf="!updating">Créer un événement</h2>
+    <h2 md-dialog-title *ngIf="!updating">Organiser un nouvel événement</h2>
     <h2 md-dialog-title *ngIf="updating">Modifier l'événement</h2>
-</md-toolbar>
 
-<md-dialog-content>
     <form [formGroup]="addForm" layout="column" (ngSubmit)="addEvent()">
         <md-input-container>
             <!-- <md-icon md-svg-icon="content:ic_create_24px" color="grey"></md-icon> -->
@@ -26,4 +23,3 @@
         <event-categorie-selector [categorie]="jmEvent.categorie" (onCategorieSelected)="onCategorieSelected($event)"></event-categorie-selector>
         <button md-raised-button color="primary">{{updating ? "Mettre à jour" : "Ajouter"}}</button>
     </form>
-</md-dialog-content>

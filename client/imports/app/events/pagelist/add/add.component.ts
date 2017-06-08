@@ -21,15 +21,13 @@ export class EventAddComponent implements OnInit {
     categorie: Categorie;
     date: Date;
     addForm: FormGroup;
-    jmEvent: any;
+    @Input() jmEvent: any;
     constructor(
-        public dialogRef: MdDialogRef<EventAddComponent>,
         private formBuilder: FormBuilder,
         private eventService: EventService) {
     }
     ngOnInit() {
-        if (this.dialogRef.config.data && this.dialogRef.config.data.jmEvent) {
-            this.jmEvent = this.dialogRef.config.data.jmEvent;
+        if (this.jmEvent) {
             this.date = this.jmEvent.date;
             this.updating = true;
         } else {

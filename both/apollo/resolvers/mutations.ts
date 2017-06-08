@@ -6,7 +6,9 @@ export const mutations = {
     addEvent(root,args,context){
       console.log("adding event");
       const move = args.event;
+      move.owner = context.userId;
       EventCollection.insert(move);
+      console.log(move);
       return move;
     },
     updateEvent(root,args,context){

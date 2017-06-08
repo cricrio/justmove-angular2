@@ -5,7 +5,7 @@ import { AppComponent } from "./app.component";
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { MaterialModule } from "@angular/material";
 import {MomentModule} from 'angular2-moment';
@@ -65,8 +65,9 @@ export function provideClient(): ApolloClient {
     imports: [
         ApolloModule.withClient(provideClient),
         RouterModule.forRoot(routes),
-        MaterialModule.forRoot(),
         BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
         FormsModule,
         ReactiveFormsModule,
         MomentModule,
