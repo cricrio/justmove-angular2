@@ -7,6 +7,7 @@ import { EventDetailsMessageComponent } from './detailsMessage/detailsMessage.co
 import { UserSmallPictureComponent } from './userSmallPicture/userSmallPicture.component';
 import { EventDetailsAddGuestButtonComponent } from './addGuestButton/addGuestButton.component';
 import {EventUpdateButton} from './updateEventButton/updateEventButton.component';
+import {JustmoveCalendarComponent} from './justmove-calendar/justmove-calendar.component';
 
 export const EVENTS_PAGE_DETAILS_DECLARATIONS = [
     EventDetailsComponent,
@@ -17,5 +18,6 @@ export const EVENTS_PAGE_DETAILS_DECLARATIONS = [
     EventDetailsMessageComponent,
     EventDetailsAddGuestButtonComponent,
     UserSmallPictureComponent,
-    EventUpdateButton
+    EventUpdateButton,
+    JustmoveCalendarComponent
 ];

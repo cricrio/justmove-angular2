@@ -1,0 +1,55 @@
+td{
+    text-align: center;
+    width: 34px;
+    height: 34px;
+    font-size: medium;
+    font-weight: 400;
+    margin: 0;
+}
+td.activate{
+    border-radius: 50%;
+    color: white;
+    background-color: mediumslateblue;
+}
+.jm-calendar{
+    width: 250px;
+    border: 1px solid gainsboro;
+    border-radius: 5%;
+   
+}
+.jm-calendar-body{
+     border-radius: 0 0 5% 5%;
+     width: 100%;
+     border-collapse:collapse;
+     background-color: floralwhite;
+     padding: 10px;
+
+}
+.jm-calendar-header{
+    color: white;
+    background-color: mediumslateblue;
+    width: 100%;
+    text-align: center;
+}
+.jm-calendar-header-week{
+    margin-bottom: 10px;
+    color: white;
+    background-color: mediumslateblue;
+    height: 30px;   
+}
+
+tbody::before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 10px;
+    color: transparent;
+
+}
+
+ 
+ 
+.jm-calendar-header > h2{
+    margin: 0;
+    padding: 10px;  
+}

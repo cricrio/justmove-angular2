@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Meteor } from 'meteor/meteor';
-import { MdDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventCollection } from '../../../../../../both/collections/event.collection';
@@ -23,6 +23,7 @@ export class EventAddComponent implements OnInit {
     addForm: FormGroup;
     @Input() jmEvent: any;
     constructor(
+        private router : Router,
         private formBuilder: FormBuilder,
         private eventService: EventService) {
     }
@@ -55,7 +56,7 @@ export class EventAddComponent implements OnInit {
             this.eventService.addEvent(jmEvent);
         }
         this.addForm.reset();
-        this.dialogRef.close();
+        //this.router.navigate(['/']);
     }
     onCategorieSelected(categorie: Categorie) {
         this.categorie = categorie;

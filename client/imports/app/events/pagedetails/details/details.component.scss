@@ -16,13 +16,16 @@
         width: 100%;
     }
 
-    event-details-info{
-        position: absolute;
-        left: 50%;
-        bottom: 25%;
-        transform: translateX(-50%)translateY(-25%);
-        text-align: center;
+    // event-details-info{
+    //     position: absolute;
+    //     left: 50%;
+    //     bottom: 25%;
+    //     transform: translateX(-50%)translateY(-25%);
+    //     text-align: center;
         
+    // }
+    .details-top-right{
+        margin-left: 20px;
     }
     event-list-users{
          position: absolute;
@@ -42,5 +45,8 @@
     .event-page-middle {
         margin: 0 10%;
         padding: 10px;
+    }
+    .inline{
+        display: inline-block;
     }
 }
