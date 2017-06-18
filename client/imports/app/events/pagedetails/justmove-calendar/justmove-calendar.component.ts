@@ -23,10 +23,11 @@ export class JustmoveCalendarComponent implements OnInit {
   weeks;
   month : string;
   day : number;
+  time : string;
 
   constructor() { 
     this.date = Date.now()
-    
+    this.time = Moment(this.date).format("h:mm");
   }
 
 

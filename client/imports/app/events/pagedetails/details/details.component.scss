@@ -1,4 +1,8 @@
 .event-details {
+
+    .margin-10{
+        margin: 10px;
+    }
     .banniere-image {
         width: inherit;
         bottom: 0;
@@ -44,7 +48,9 @@
     }
     .event-page-middle {
         margin: 0 10%;
-        padding: 10px;
+    }
+    .event-page-middle-top{
+        width: 100%;
     }
     .inline{
         display: inline-block;

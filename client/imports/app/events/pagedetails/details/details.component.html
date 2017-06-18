@@ -9,24 +9,20 @@
         <event-details-add-guest-button class="right-button" [(event)]="event" *ngIf="! isUserEvent()"></event-details-add-guest-button>
         <event-list-users [users]="event.guests"></event-list-users>
     </div>
-    <div class="event-page-middle md-padding">
-        <div class="event-page-top" layout="row">
-            <app-justmove-calendar></app-justmove-calendar>
-            <div layout="column" class="details-top-right">
-                <event-details-info [event]="event"></event-details-info>
-                <div class="description">
+    <div class="event-page-middle">
+        <div class="event-page-middle-top" layout="row">
+            <app-justmove-calendar class="margin-10"></app-justmove-calendar>
+            <md-card class="margin-10">
+                <md-card-header>
+                    <h2> Description </h2>
+                </md-card-header>
+                <md-card-content>
                     {{event.description}}
-                </div>
-            </div>
+                </md-card-content>
+            </md-card>
         </div>
+        <justmove-maps class="margin-10"></justmove-maps>
+        <event-details-message-room [event]="event"></event-details-message-room>
     </div>
-
-    <div class="event-description">
-        <span class='description-label'>Description</span>
-        <div class="description">
-            {{event.description}}
-        </div>
-    </div>
-    <event-details-message-room [event]="event"></event-details-message-room>
 </div>
 </div>

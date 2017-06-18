@@ -1,25 +1,30 @@
 <div class="jm-calendar">
-  <div class="jm-calendar-header">
-    <h2> {{month | titlecase}} </h2>
-  </div>
-  <table class="jm-calendar-body">
-    <thead class="jm-calendar-header-week">
-      <tr>
-        <th>L</th>
-        <th>M</th>
-        <th>M</th>
-        <th>J</th>
-        <th>V</th>
-        <th>S</th>
-        <th>D</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let week of weeks">
-        <td *ngFor="let day of week" [class.activate]="day.activate">
-          {{day.label}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <md-card>
+    <md-card-header>
+      <h2 class="jm-calendar-header"> {{month | titlecase}} </h2>
+    </md-card-header>
+    <table class="jm-calendar-body">
+      <thead class="jm-calendar-header-week">
+        <tr>
+          <th>L</th>
+          <th>M</th>
+          <th>M</th>
+          <th>J</th>
+          <th>V</th>
+          <th>S</th>
+          <th>D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of weeks">
+          <td *ngFor="let day of week" [class.activate]="day.activate">
+            {{day.label}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2 class="jm-calendar-time">
+      {{time}}
+    </h2>
+  </md-card>
 </div>
